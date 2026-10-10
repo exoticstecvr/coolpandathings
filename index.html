@@ -99,32 +99,6 @@
 
         /* Start Menu & Context Flyout Glass */
         .start-glass {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.18) 0%, rgba(16, 21, 31, 0.82) 35%, rgba(10, 14, 22, 0.90) 100%);
-            backdrop-filter: blur(50px) saturate(240%);
-            -webkit-backdrop-filter: blur(50px) saturate(240%);
-            border-radius: 36px;
-            border: 1.5px solid rgba(255, 255, 255, 0.32);
-            box-shadow: 
-                0 30px 90px rgba(0, 0, 0, 0.85), 
-                0 0 25px rgba(255, 255, 255, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.2) inset,
-                0 1px 2px 0 rgba(255, 255, 255, 0.5) inset;
-        }
-
-        .context-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(20, 26, 38, 0.85) 40%, rgba(12, 16, 24, 0.92) 100%);
-            backdrop-filter: blur(36px) saturate(220%);
-            -webkit-backdrop-filter: blur(36px) saturate(220%);
-            border-radius: 24px;
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.65),
-                0 0 15px rgba(255, 255, 255, 0.1),
-                0 1px 0 0 rgba(255, 255, 255, 0.4) inset;
-        }
-
-        /* Start Menu & Context Flyout Glass */
-        .start-glass {
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(16, 21, 31, 0.78) 35%, rgba(10, 14, 22, 0.85) 100%);
             backdrop-filter: blur(45px) saturate(230%);
             -webkit-backdrop-filter: blur(45px) saturate(230%);
@@ -186,12 +160,6 @@
             box-shadow: 0 0 12px rgba(232, 17, 35, 0.4);
         }
 
-        /* Windows Start Icon Grid Glow */
-        .start-icon-grid:hover div {
-            background-color: #38bdf8;
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
-        }
-
         /* Custom Curved Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
@@ -239,7 +207,6 @@
 
     <!-- Desktop Shortcut Grid -->
     <main id="desktop-grid" class="relative z-10 h-[calc(100vh-68px)] w-full p-6 grid grid-flow-col grid-rows-6 gap-4 content-start justify-start">
-        
         <!-- GamingBrothers 104 Desktop Shortcut Icon -->
         <div class="group flex flex-col items-center justify-center p-3 rounded-3xl bg-white/5 hover:bg-white/15 border border-white/20 hover:border-white/40 shadow-lg shadow-black/30 backdrop-blur-md transition duration-200 cursor-pointer w-28 h-28" onclick="openApp(); event.stopPropagation();">
             <div class="w-12 h-12 rounded-2xl bg-black/60 border border-white/20 flex items-center justify-center text-white text-2xl shadow-lg shadow-black/50 group-hover:scale-110 transition duration-200">
@@ -247,17 +214,13 @@
             </div>
             <span class="mt-2 text-xs font-semibold text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-wide">GamingBrothers 104</span>
         </div>
-
     </main>
 
-    <!-- Floating Glass Taskbar (Cleaner Dock without Windows Start Bar) -->
+    <!-- Floating Glass Taskbar -->
     <div class="fixed bottom-3 left-0 right-0 z-30 flex justify-center px-4 pointer-events-none">
         <footer class="pointer-events-auto relative h-12 w-auto taskbar-glass px-5 py-1.5 flex items-center space-x-4 transition-all duration-300">
-            
-            <!-- System Branding -->
             <span class="text-[11px] text-slate-100 font-bold px-3 py-1 rounded-full bg-white/15 border border-white/25 tracking-wider shadow-md backdrop-blur-lg">GamingBrothers 104</span>
 
-            <!-- Dock Launch Button -->
             <button id="taskbar-app-btn" onclick="toggleAppWindow()" class="relative win-btn-hover p-2.5 rounded-full text-slate-200 hover:text-white border border-white/10" title="GamingBrothers 104">
                 <i class="fa-solid fa-gamepad text-base"></i>
                 <span id="app-dock-indicator" class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white opacity-0 transition-opacity shadow-sm shadow-white"></span>
@@ -265,7 +228,6 @@
 
             <div class="h-4 w-[1px] bg-white/20"></div>
 
-            <!-- Right System Status Tray -->
             <div class="flex items-center space-x-2 text-xs">
                 <div class="flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition cursor-pointer text-slate-100 shadow-sm">
                     <i class="fa-solid fa-wifi text-[11px]"></i>
@@ -276,7 +238,6 @@
                     </div>
                 </div>
 
-                <!-- Clock Display -->
                 <div class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition cursor-pointer text-center shadow-sm">
                     <div id="taskbar-time" class="font-semibold text-[11px] text-white">00:00:00</div>
                 </div>
@@ -315,7 +276,6 @@
             </div>
 
             <div class="mt-4 space-y-5 text-xs">
-                <!-- Custom Background URL -->
                 <div>
                     <label class="block text-slate-300 font-medium mb-1.5">Custom Background URL (MP4 / Image):</label>
                     <div class="flex space-x-2">
@@ -324,7 +284,6 @@
                     </div>
                 </div>
 
-                <!-- Video Tone Presets -->
                 <div>
                     <label class="block text-slate-300 font-medium mb-1.5">Video Clarity & Vibrance Modes:</label>
                     <div class="grid grid-cols-2 gap-2">
@@ -350,9 +309,6 @@
         </div>
     </div>
 
-    <!-- Hidden Wallpaper File Upload -->
-    <input type="file" id="wallpaper-file-input" accept="image/*,video/*" class="hidden" onchange="handleWallpaperUpload(event)">
-
     <script>
         // Accurate Time & Battery Functionality
         function updateClock() {
@@ -362,9 +318,7 @@
             const seconds = String(now.getSeconds()).padStart(2, '0');
             
             const timeEl = document.getElementById('taskbar-time');
-            const dateEl = document.getElementById('taskbar-date');
             if (timeEl) timeEl.innerText = `${hours}:${minutes}:${seconds}`;
-            if (dateEl) dateEl.innerText = now.toLocaleDateString();
         }
         setInterval(updateClock, 1000);
         updateClock();
@@ -414,16 +368,48 @@
         let isMaximized = false;
         let zIndexCounter = 30;
 
-        // Sample Games Collection (Black Theme, No Ratings or Genres)
+        /* ==========================================================================
+           EASY GAME LIBRARY CONFIGURATION:
+           To add a new game, simply copy an object block below and update the fields:
+           - title: The name displayed on the card & title bar
+           - icon: FontAwesome icon class (e.g. 'fa-gamepad', 'fa-cube', 'fa-car')
+           - cover: Image background URL for the card preview
+           - url: Web link to embed inside the game window
+           - embedCode: Optional raw <iframe> code if not using a standard url
+           ========================================================================== */
         const gameLibrary = [
-            { id: 1, title: "B01 Zombies", icon: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapers.com%2Fimages%2Fhd%2Fcall-of-duty-black-ops-1-1280-x-720-thslzwnc9s30n3gw.jpg&f=1&nofb=1&ipt=f99ffadc03476ad58836f4f7d35950487773eaee869ef4512a31656d0045851c&ipo=images", url: "vel.gg/bo1z" },
-            { id: 2, title: "Neon Velocity", icon: "fa-gauge-high", url: "https://itch.io/embed-upload/2544203?color=000000" },
-            { id: 3, title: "Shadow Rogue", icon: "fa-ninja", url: "https://itch.io/embed-upload/2544203?color=000000" },
-            { id: 4, title: "Astra Horizon", icon: "fa-shuttle-space", url: "https://itch.io/embed-upload/2544203?color=000000" },
-            { id: 5, title: "Pixel Quest", icon: "fa-ghost", url: "https://itch.io/embed-upload/2544203?color=000000" },
-            { id: 6, title: "Mystic Realm", icon: "fa-wand-magic-sparkles", url: "https://itch.io/embed-upload/2544203?color=000000" },
-            { id: 7, title: "Overdrive Arena", icon: "fa-crosshairs", url: "https://itch.io/embed-upload/2544203?color=000000" },
-            { id: 8, title: "Frost Survivor", icon: "fa-snowflake", url: "https://itch.io/embed-upload/2544203?color=000000" }
+            { 
+                id: 1, 
+                title: "Skate 3", 
+                icon: "fa-person-skateboarding", 
+                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets-prd.ignimgs.com%2F2022%2F01%2F07%2Fskate-3-button-1641599749809.jpg&f=1&nofb=1&ipt=a12e315809c4254893bad36e9f8ee27c7cf8fafc29a70859fb1af6a93884357f&ipo=images",
+                url: "https://skate.aaddpp.lol/",
+                embedCode: ""
+            },
+            { 
+                id: 2, 
+                title: "BO1 Zombies", 
+                icon: "fa-cube", 
+                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapers.com%2Fimages%2Fhd%2Fcall-of-duty-black-ops-1-1280-x-720-thslzwnc9s30n3gw.jpg&f=1&nofb=1&ipt=f99ffadc03476ad58836f4f7d35950487773eaee869ef4512a31656d0045851c&ipo=images",
+                url: "vel.gg/bo1z",
+                embedCode: ""
+            },
+            { 
+                id: 3, 
+                title: "Half life", 
+                icon: "fa-halflife", 
+                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fhalf-life.com%2Fimages%2Fhalflife25%2FHLwallpaper01_16x9.jpg&f=1&nofb=1&ipt=8f773ce3c415a4b564f3ac6d1495adccac36c7b38d44745ab8dbd28f2c9eaf7d&ipo=images",
+                url: "pixelsuft.github.io/hl/",
+                embedCode: ""
+            },
+            { 
+                id: 4, 
+                title: "cssurf", 
+                icon: "fa-cssurf", 
+                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcloud.cybershoke.net%2Fimg%2Fmaps%2F2%2Fsurf_boreas.jpg&f=1&nofb=1&ipt=7a8caa4845df718a64a3278445eebd8f9f7e93b9841bcb11dd8cf63efc56b780&ipo=images",
+                url: "surfd.net/",
+                embedCode: ""
+            }
         ];
 
         function openApp() {
@@ -442,8 +428,8 @@
             if (indicator) indicator.classList.remove('opacity-0');
 
             const container = document.getElementById('windows-container');
-            const winWidth = Math.min(840, window.innerWidth - 40);
-            const winHeight = Math.min(580, window.innerHeight - 100);
+            const winWidth = Math.min(880, window.innerWidth - 40);
+            const winHeight = Math.min(600, window.innerHeight - 100);
             const posX = (window.innerWidth - winWidth) / 2;
             const posY = (window.innerHeight - winHeight) / 2 - 20;
 
@@ -457,7 +443,6 @@
             winDiv.style.zIndex = ++zIndexCounter;
 
             winDiv.innerHTML = `
-                <!-- Window Edge Resize Handles -->
                 <div class="resize-handle resize-handle-n"></div>
                 <div class="resize-handle resize-handle-s"></div>
                 <div class="resize-handle resize-handle-e"></div>
@@ -467,7 +452,6 @@
                 <div class="resize-handle resize-handle-se"></div>
                 <div class="resize-handle resize-handle-sw"></div>
 
-                <!-- Window Title Header with Glass Sheen -->
                 <div id="app-window-header" class="h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing">
                     <div class="flex items-center space-x-2.5">
                         <i class="fa-solid fa-gamepad text-xs text-white"></i>
@@ -486,18 +470,15 @@
                     </div>
                 </div>
 
-                <!-- Window Content (Gaming Library with 4-Column Grid) -->
                 <div class="flex-1 p-5 flex flex-col overflow-y-auto">
-                    <!-- Top Toolbar -->
                     <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
                         <div class="flex items-center space-x-3 text-xs">
-                            <span class="text-sm font-bold text-white tracking-wide">GamingBrothers 104</span>
-                            <span class="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-[10px] font-semibold border border-white/15" id="game-count-badge">${gameLibrary.length} Games</span>
+                            <span class="text-sm font-bold text-white tracking-wide">GamingBrothers Vault</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-[10px] font-semibold border border-white/15">${gameLibrary.length} Games Available</span>
                         </div>
                     </div>
 
-                    <!-- 4-Column Stacked Black Game Cards Grid -->
-                    <div id="game-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 flex-1">
+                    <div id="game-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 flex-1">
                         ${renderGameCards()}
                     </div>
                 </div>
@@ -515,32 +496,43 @@
         }
 
         function renderGameCards() {
-            return gameLibrary.map(game => `
-                <div onclick="launchGame('${game.title}', '${game.icon}', '${game.url}')" class="group relative rounded-2xl bg-black/80 hover:bg-black p-3 border border-white/15 hover:border-white/40 backdrop-blur-md shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between h-40 cursor-pointer">
-                    <div class="truncate pr-2">
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Title</span>
-                        <h4 class="text-xs font-bold text-white truncate drop-shadow-sm">${game.title}</h4>
-                    </div>
+            return gameLibrary.map((game, idx) => `
+                <div onclick="launchGameByIndex(${idx})" class="group relative rounded-2xl bg-black/70 hover:bg-black/90 border border-white/15 hover:border-cyan-400/50 backdrop-blur-md shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between h-48 cursor-pointer">
+                    <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-300" style="background-image: url('${game.cover}');"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
 
-                    <div class="my-2 flex items-center justify-center h-14 rounded-xl bg-white/5 border border-white/10 group-hover:bg-white/10 transition duration-300">
-                        <i class="fa-solid ${game.icon} text-2xl text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"></i>
-                    </div>
-
-                    <div class="flex items-center justify-end pt-1 border-t border-white/10">
-                        <span class="w-full py-1 text-center rounded-lg bg-white/10 group-hover:bg-white/25 text-white text-[10px] font-semibold transition border border-white/20">
-                            Launch
+                    <div class="relative z-10 p-3 flex items-center justify-between">
+                        <span class="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
+                            Playable
                         </span>
+                        <i class="fa-solid ${game.icon} text-slate-300 text-xs"></i>
+                    </div>
+
+                    <div class="relative z-10 p-3 pt-0">
+                        <h4 class="text-sm font-bold text-white drop-shadow-md truncate">${game.title}</h4>
+                        <div class="mt-2 flex items-center justify-between">
+                            <span class="w-full py-1.5 text-center rounded-xl bg-white/15 group-hover:bg-cyan-500 text-white text-xs font-semibold transition border border-white/20 shadow-md">
+                                Launch Game
+                            </span>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function launchGame(title, icon, url) {
+        function launchGameByIndex(index) {
+            const game = gameLibrary[index];
+            if (game) {
+                launchGame(game.title, game.icon, game.url, game.embedCode);
+            }
+        }
+
+        function launchGame(title, icon, url, embedCode) {
             const container = document.getElementById('windows-container');
-            const winWidth = Math.min(880, window.innerWidth - 60);
-            const winHeight = Math.min(620, window.innerHeight - 100);
-            const posX = (window.innerWidth - winWidth) / 2 + Math.random() * 30 - 15;
-            const posY = (window.innerHeight - winHeight) / 2 + Math.random() * 30 - 15;
+            const winWidth = Math.min(920, window.innerWidth - 60);
+            const winHeight = Math.min(640, window.innerHeight - 80);
+            const posX = (window.innerWidth - winWidth) / 2 + Math.random() * 20 - 10;
+            const posY = (window.innerHeight - winHeight) / 2 + Math.random() * 20 - 10;
 
             const winDiv = document.createElement('div');
             winDiv.className = 'absolute pointer-events-auto glass-window flex flex-col overflow-hidden transition-all duration-200 transform scale-95 opacity-0';
@@ -569,6 +561,9 @@
                         <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
                     </div>
                     <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
+                        ${url ? `<a href="${url}" target="_blank" title="Open directly in browser" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>` : ''}
                         <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center">
                             <i class="fa-solid fa-xmark text-xs"></i>
                         </button>
@@ -576,11 +571,20 @@
                 </div>
 
                 <div class="flex-1 w-full h-full bg-black relative">
-                    <iframe src="${url}" class="w-full h-full border-0" allowfullscreen></iframe>
+                    <iframe id="${winId}-iframe" class="w-full h-full border-0" allow="autoplay; gamepad; fullscreen; accelerometer; gyroscope" allowfullscreen></iframe>
                 </div>
             `;
 
             container.appendChild(winDiv);
+
+            const iframe = document.getElementById(`${winId}-iframe`);
+            if (iframe) {
+                if (embedCode) {
+                    iframe.srcdoc = embedCode;
+                } else if (url) {
+                    iframe.src = url;
+                }
+            }
 
             setTimeout(() => {
                 winDiv.classList.remove('scale-95', 'opacity-0');
@@ -599,7 +603,7 @@
             }
 
             function dragMouseDown(e) {
-                if (e.target.closest('button')) return;
+                if (e.target.closest('button') || e.target.closest('a')) return;
                 e.preventDefault();
                 elmnt.style.zIndex = ++zIndexCounter;
                 elmnt.classList.add('is-dragging');
@@ -706,7 +710,7 @@
         function makeWindowDraggable(elmnt) {
             let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
             let ticking = false;
-            const header = document.getElementById('app-window-header');
+            const header = elmnt.querySelector('.glass-header-sheen');
 
             if (header) {
                 header.onmousedown = dragMouseDown;
@@ -751,119 +755,6 @@
             }
         }
 
-        function focusApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                winDiv.style.zIndex = ++zIndexCounter;
-            }
-        }
-
-        function toggleAppWindow() {
-            if (!isAppOpen) {
-                openApp();
-            } else if (isMinimized) {
-                unminimizeApp();
-            } else {
-                minimizeApp();
-            }
-        }
-
-        function minimizeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                winDiv.classList.add('scale-95', 'opacity-0');
-                isMinimized = true;
-            }
-        }
-
-        function unminimizeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                focusApp();
-                winDiv.classList.remove('scale-95', 'opacity-0');
-                isMinimized = false;
-            }
-        }
-
-        function toggleMaximizeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (!winDiv) return;
-
-            if (!isMaximized) {
-                winDiv.dataset.prevLeft = winDiv.style.left;
-                winDiv.dataset.prevTop = winDiv.style.top;
-                winDiv.dataset.prevWidth = winDiv.style.width;
-                winDiv.dataset.prevHeight = winDiv.style.height;
-
-                winDiv.style.left = '8px';
-                winDiv.style.top = '8px';
-                winDiv.style.width = 'calc(100vw - 16px)';
-                winDiv.style.height = 'calc(100vh - 64px)';
-                isMaximized = true;
-            } else {
-                winDiv.style.left = winDiv.dataset.prevLeft;
-                winDiv.style.top = winDiv.dataset.prevTop;
-                winDiv.style.width = winDiv.dataset.prevWidth;
-                winDiv.style.height = winDiv.dataset.prevHeight;
-                isMaximized = false;
-            }
-        }
-
-        function closeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                winDiv.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    winDiv.remove();
-                }, 200);
-            }
-            isAppOpen = false;
-            isMinimized = false;
-            isMaximized = false;
-            const indicator = document.getElementById('app-dock-indicator');
-            if (indicator) indicator.classList.add('opacity-0');
-        }
-
-        function makeWindowDraggable(elmnt) {
-            let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
-            const header = document.getElementById('app-window-header');
-
-            if (header) {
-                header.onmousedown = dragMouseDown;
-            }
-
-            function dragMouseDown(e) {
-                if (isMaximized || e.target.closest('button')) return;
-                e.preventDefault();
-                focusApp();
-                elmnt.classList.add('is-dragging');
-                startX = e.clientX;
-                startY = e.clientY;
-                initialLeft = elmnt.offsetLeft;
-                initialTop = elmnt.offsetTop;
-
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
-
-            function elementDrag(e) {
-                e.preventDefault();
-                const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
-
-                let newTop = Math.max(0, initialTop + dy);
-                let newLeft = initialLeft + dx;
-                elmnt.style.left = newLeft + "px";
-                elmnt.style.top = newTop + "px";
-            }
-
-            function closeDragElement() {
-                elmnt.classList.remove('is-dragging');
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
-        }
-
         function makeWindowResizable(elmnt) {
             const handles = elmnt.querySelectorAll('.resize-handle');
             
@@ -877,6 +768,7 @@
                 e.stopPropagation();
                 
                 const handleClass = Array.from(e.target.classList).find(c => c.startsWith('resize-handle-'));
+                if (!handleClass) return;
                 const direction = handleClass.replace('resize-handle-', '');
                 
                 let startX = e.clientX;
@@ -930,11 +822,6 @@
             }
         }
 
-        function toggleStartMenu() {
-            const sm = document.getElementById('start-menu');
-            if (sm) sm.classList.toggle('hidden');
-        }
-
         function toggleSettingsModal() {
             const sm = document.getElementById('settings-modal');
             if (sm) sm.classList.toggle('hidden');
@@ -942,9 +829,8 @@
 
         function closeMenus() {
             const cm = document.getElementById('context-menu');
-            const sm = document.getElementById('start-menu');
+            const sm = document.getElementById('settings-modal');
             if (cm) cm.classList.add('hidden');
-            if (sm) sm.classList.add('hidden');
         }
 
         function setPreset(presetClass) {
@@ -978,16 +864,6 @@
                 if (video) video.classList.add('opacity-0');
             }
             toggleSettingsModal();
-        }
-
-        function handleWallpaperUpload(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const url = URL.createObjectURL(file);
-            const input = document.getElementById('custom-url-input');
-            if (input) input.value = url;
-            applyCustomUrl();
         }
     </script>
 </body>
