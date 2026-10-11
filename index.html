@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Windows 11 Fluent Glass Desktop</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome 6 icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Custom Windows 11 Glass & Curved Rim Styling -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
@@ -29,10 +25,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* 
-           SMOOTH VIDEO UPSCALING & SHARPNESS
-           No noise, no grain lines, clean visual enhancement
-        */
         .clean-upscale-hd {
             filter: contrast(1.08) saturate(1.15) brightness(0.98);
             transform: scale(1.002);
@@ -52,10 +44,6 @@
             filter: none;
         }
 
-        /* 
-           PREMIUM FLUENT GLASS MORPHISM WITH FROSTED CURVED RIMS
-           Multi-layered inset specular highlights simulate real 3D glass edges
-        */
         .glass-window {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(20, 26, 38, 0.55) 30%, rgba(10, 14, 22, 0.70) 100%);
             backdrop-filter: blur(40px) saturate(220%);
@@ -70,7 +58,6 @@
             position: relative;
         }
 
-        /* Soft glowing curved highlight rim for glass edges */
         .glass-window::before {
             content: '';
             position: absolute;
@@ -84,7 +71,6 @@
             pointer-events: none;
         }
 
-        /* Taskbar Glass Frame */
         .taskbar-glass {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(12, 16, 24, 0.75) 100%);
             backdrop-filter: blur(45px) saturate(240%);
@@ -95,19 +81,6 @@
                 0 20px 50px rgba(0, 0, 0, 0.65),
                 0 0 20px rgba(255, 255, 255, 0.15),
                 0 1px 2px 0 rgba(255, 255, 255, 0.5) inset;
-        }
-
-        /* Start Menu & Context Flyout Glass */
-        .start-glass {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(16, 21, 31, 0.78) 35%, rgba(10, 14, 22, 0.85) 100%);
-            backdrop-filter: blur(45px) saturate(230%);
-            -webkit-backdrop-filter: blur(45px) saturate(230%);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            box-shadow: 
-                0 30px 90px rgba(0, 0, 0, 0.85), 
-                0 0 0 1px rgba(255, 255, 255, 0.18) inset,
-                0 1px 1px 0 rgba(255, 255, 255, 0.4) inset;
         }
 
         .context-glass {
@@ -121,12 +94,10 @@
                 0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
         }
 
-        /* Specular light sheen on window headers */
         .glass-header-sheen {
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.06) 100%);
         }
 
-        /* Hover & Interactive states */
         .win-btn-hover {
             transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
         }
@@ -140,7 +111,6 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* Hardware Accelerated Smooth Window Movement */
         .is-dragging {
             transition: none !important;
             backdrop-filter: none !important;
@@ -160,7 +130,28 @@
             box-shadow: 0 0 12px rgba(232, 17, 35, 0.4);
         }
 
-        /* Custom Curved Scrollbar */
+        /* F11 Auto-hiding header overlay in maximized mode */
+        .f11-header-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transform: translateY(-100%);
+            transition: transform 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+        .f11-header-container.revealed {
+            transform: translateY(0);
+        }
+        .f11-hover-detector {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 25px;
+            z-index: 49;
+        }
+
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -177,7 +168,6 @@
             background: rgba(255, 255, 255, 0.45);
         }
 
-        /* Window Resize Handle Overlay */
         .resize-handle {
             position: absolute;
             z-index: 20;
@@ -194,7 +184,6 @@
 </head>
 <body class="h-full w-full relative overflow-hidden text-slate-100 select-none" oncontextmenu="openContextMenu(event)" onclick="closeMenus()">
 
-    <!-- Crisp Clean Video Background Container -->
     <div id="wallpaper-container" class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video id="bg-video" class="w-full h-full object-cover clean-upscale-hd transition-opacity duration-700 opacity-100" autoplay loop muted playsinline>
             <source id="bg-video-src" src="https://motionbgs.com/media/9823/beneath-the-forgotten-arc.960x540.mp4" type="video/mp4">
@@ -202,12 +191,9 @@
         <div id="bg-image" class="absolute inset-0 bg-cover bg-center transition-opacity duration-700 opacity-0"></div>
     </div>
 
-    <!-- Desktop Windows Workspace Container -->
     <div id="windows-container" class="absolute inset-0 z-20 pointer-events-none"></div>
 
-    <!-- Desktop Shortcut Grid -->
     <main id="desktop-grid" class="relative z-10 h-[calc(100vh-68px)] w-full p-6 grid grid-flow-col grid-rows-6 gap-4 content-start justify-start">
-        <!-- GamingBrothers 104 Desktop Shortcut Icon -->
         <div class="group flex flex-col items-center justify-center p-3 rounded-3xl bg-white/5 hover:bg-white/15 border border-white/20 hover:border-white/40 shadow-lg shadow-black/30 backdrop-blur-md transition duration-200 cursor-pointer w-28 h-28" onclick="openApp(); event.stopPropagation();">
             <div class="w-12 h-12 rounded-2xl bg-black/60 border border-white/20 flex items-center justify-center text-white text-2xl shadow-lg shadow-black/50 group-hover:scale-110 transition duration-200">
                 <i class="fa-solid fa-gamepad"></i>
@@ -216,7 +202,6 @@
         </div>
     </main>
 
-    <!-- Floating Glass Taskbar -->
     <div class="fixed bottom-3 left-0 right-0 z-30 flex justify-center px-4 pointer-events-none">
         <footer class="pointer-events-auto relative h-12 w-auto taskbar-glass px-5 py-1.5 flex items-center space-x-4 transition-all duration-300">
             <span class="text-[11px] text-slate-100 font-bold px-3 py-1 rounded-full bg-white/15 border border-white/25 tracking-wider shadow-md backdrop-blur-lg">GamingBrothers 104</span>
@@ -245,7 +230,6 @@
         </footer>
     </div>
 
-    <!-- Context Menu -->
     <div id="context-menu" class="hidden absolute z-50 w-56 context-glass p-1.5 shadow-2xl text-xs" onclick="event.stopPropagation()">
         <div onclick="openApp(); closeMenus();" class="px-3 py-2 rounded-xl hover:bg-white/10 flex items-center space-x-2.5 cursor-pointer text-slate-200 hover:text-white transition">
             <i class="fa-solid fa-gamepad text-white w-4"></i>
@@ -262,7 +246,6 @@
         </div>
     </div>
 
-    <!-- Wallpaper Settings Glass Modal -->
     <div id="settings-modal" class="hidden absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md" onclick="toggleSettingsModal()">
         <div class="glass-window w-[28rem] p-6 shadow-2xl" onclick="event.stopPropagation()">
             <div class="flex items-center justify-between pb-4 border-b border-white/10">
@@ -310,7 +293,6 @@
     </div>
 
     <script>
-        // Accurate Time & Battery Functionality
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -323,7 +305,6 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Real Battery Status API Integration
         async function updateBatteryStatus() {
             const batteryIcon = document.getElementById('battery-icon');
             const batteryLevel = document.getElementById('battery-level');
@@ -362,52 +343,58 @@
         }
         updateBatteryStatus();
 
-        // App Window State & Game Vault Library Management
         let isAppOpen = false;
         let isMinimized = false;
         let isMaximized = false;
         let zIndexCounter = 30;
 
-        /* ==========================================================================
-           EASY GAME LIBRARY CONFIGURATION:
-           To add a new game, simply copy an object block below and update the fields:
-           - title: The name displayed on the card & title bar
-           - icon: FontAwesome icon class (e.g. 'fa-gamepad', 'fa-cube', 'fa-car')
-           - cover: Image background URL for the card preview
-           - url: Web link to embed inside the game window
-           - embedCode: Optional raw <iframe> code if not using a standard url
-           ========================================================================== */
         const gameLibrary = [
             { 
                 id: 1, 
                 title: "Skate 3", 
                 icon: "fa-person-skateboarding", 
                 cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets-prd.ignimgs.com%2F2022%2F01%2F07%2Fskate-3-button-1641599749809.jpg&f=1&nofb=1&ipt=a12e315809c4254893bad36e9f8ee27c7cf8fafc29a70859fb1af6a93884357f&ipo=images",
-                url: "https://skate.aaddpp.lol/",
+                url: "https://skate.aaddpp.lol/?low=1&fps=15&res=640x480",
                 embedCode: ""
             },
             { 
                 id: 2, 
-                title: "GTA-5", 
-                icon: "fa-gta", 
+                title: "GTA 5", 
+                icon: "fa-car", 
                 cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets-prd.ignimgs.com%2F2021%2F12%2F17%2Fgta-5-button-2021-1639777058682.jpg&f=1&nofb=1&ipt=34c95eb5e614da25ef89926ec31548be930d479f1f2bc57618aaaa1de4a3e421&ipo=images",
                 url: "https://playgta5-tau.vercel.app/?low=1&fps=30&res=1280x720",
                 embedCode: ""
             },
             { 
                 id: 3, 
-                title: "Half life", 
-                icon: "fa-halflife", 
-                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fhalf-life.com%2Fimages%2Fhalflife25%2FHLwallpaper01_16x9.jpg&f=1&nofb=1&ipt=8f773ce3c415a4b564f3ac6d1495adccac36c7b38d44745ab8dbd28f2c9eaf7d&ipo=images",
-                url: "pixelsuft.github.io/hl/",
+                title: "BO1 Zombies", 
+                icon: "fa-skull-crossbones", 
+                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fportpowered.fun%2Fassets%2Fbo1-zombies-xsGi-bOr.jpg&f=1&nofb=1&ipt=83f0f3ddea65c17f7479c2838fb41508581f9117ee73c55e903ce83551e1e403&ipo=images",
+                url: "https://vel.gg/bo1z",
                 embedCode: ""
             },
             { 
                 id: 4, 
-                title: "cssurf", 
-                icon: "fa-cssurf", 
+                title: "Half-Life", 
+                icon: "fa-cube", 
+                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fhalf-life.com%2Fimages%2Fhalflife25%2FHLwallpaper01_16x9.jpg&f=1&nofb=1&ipt=8f773ce3c415a4b564f3ac6d1495adccac36c7b38d44745ab8dbd28f2c9eaf7d&ipo=images",
+                url: "https://pixelsuft.github.io/hl/",
+                embedCode: ""
+            },
+            { 
+                id: 5, 
+                title: "CSSurf", 
+                icon: "fa-person-running", 
                 cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcloud.cybershoke.net%2Fimg%2Fmaps%2F2%2Fsurf_boreas.jpg&f=1&nofb=1&ipt=7a8caa4845df718a64a3278445eebd8f9f7e93b9841bcb11dd8cf63efc56b780&ipo=images",
-                url: "surfd.net/",
+                url: "https://surfd.net/",
+                embedCode: ""
+            },
+            { 
+                id: 6, 
+                title: "DOOM Retro", 
+                icon: "fa-skull", 
+                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80",
+                url: "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Foriginal%2F2X%2F3%2F32d8478d154dfb9b657e201b178419f20e97d197.jsdos",
                 embedCode: ""
             }
         ];
@@ -544,6 +531,7 @@
 
             const winId = 'game-win-' + Math.random().toString(36).substring(2, 7);
             winDiv.id = winId;
+            let isGameMaximized = false;
 
             winDiv.innerHTML = `
                 <div class="resize-handle resize-handle-n"></div>
@@ -555,18 +543,44 @@
                 <div class="resize-handle resize-handle-se"></div>
                 <div class="resize-handle resize-handle-sw"></div>
 
-                <div class="game-header h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing">
-                    <div class="flex items-center space-x-2.5">
-                        <i class="fa-solid ${icon} text-xs text-white"></i>
-                        <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
+                <div class="f11-hover-detector hidden" id="${winId}-detector"></div>
+                <div class="f11-header-container" id="${winId}-f11-header">
+                    <div class="game-header h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing backdrop-blur-xl bg-black/80">
+                        <div class="flex items-center space-x-2.5">
+                            <i class="fa-solid ${icon} text-xs text-white"></i>
+                            <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
+                        </div>
+                        <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
+                            ${url ? `<a href="${url}" target="_blank" title="Open directly in browser" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>` : ''}
+                            <button id="${winId}-max-btn" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center" title="Maximize / F11 mode">
+                                <i class="fa-regular fa-square text-[9px]"></i>
+                            </button>
+                            <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center" title="Close">
+                                <i class="fa-solid fa-xmark text-xs"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
-                        ${url ? `<a href="${url}" target="_blank" title="Open directly in browser" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>` : ''}
-                        <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center">
-                            <i class="fa-solid fa-xmark text-xs"></i>
-                        </button>
+                </div>
+
+                <div class="normal-header-wrapper" id="${winId}-normal-header">
+                    <div class="game-header h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing">
+                        <div class="flex items-center space-x-2.5">
+                            <i class="fa-solid ${icon} text-xs text-white"></i>
+                            <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
+                        </div>
+                        <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
+                            ${url ? `<a href="${url}" target="_blank" title="Open directly in browser" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>` : ''}
+                            <button id="${winId}-max-btn-2" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center" title="Maximize">
+                                <i class="fa-regular fa-square text-[9px]"></i>
+                            </button>
+                            <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center" title="Close">
+                                <i class="fa-solid fa-xmark text-xs"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -576,6 +590,68 @@
             `;
 
             container.appendChild(winDiv);
+
+            const maxBtn = document.getElementById(`${winId}-max-btn`);
+            const maxBtn2 = document.getElementById(`${winId}-max-btn-2`);
+            const f11Header = document.getElementById(`${winId}-f11-header`);
+            const normalHeader = document.getElementById(`${winId}-normal-header`);
+            const detector = document.getElementById(`${winId}-detector`);
+
+            function toggleMax() {
+                winDiv.style.zIndex = ++zIndexCounter;
+                if (!isGameMaximized) {
+                    winDiv.dataset.prevLeft = winDiv.style.left;
+                    winDiv.dataset.prevTop = winDiv.style.top;
+                    winDiv.dataset.prevWidth = winDiv.style.width;
+                    winDiv.dataset.prevHeight = winDiv.style.height;
+
+                    // Fill 100vw x 100vh completely
+                    winDiv.style.left = '0px';
+                    winDiv.style.top = '0px';
+                    winDiv.style.width = '100vw';
+                    winDiv.style.height = '100vh';
+                    winDiv.style.borderRadius = '0px';
+
+                    // Switch to F11 auto-hiding header mode
+                    if (normalHeader) normalHeader.style.display = 'none';
+                    if (f11Header) f11Header.classList.remove('hidden');
+                    if (detector) detector.classList.remove('hidden');
+
+                    isGameMaximized = true;
+                } else {
+                    winDiv.style.left = winDiv.dataset.prevLeft;
+                    winDiv.style.top = winDiv.dataset.prevTop;
+                    winDiv.style.width = winDiv.dataset.prevWidth;
+                    winDiv.style.height = winDiv.dataset.prevHeight;
+                    winDiv.style.borderRadius = '';
+
+                    // Restore normal header
+                    if (normalHeader) normalHeader.style.display = 'block';
+                    if (f11Header) {
+                        f11Header.classList.add('hidden');
+                        f11Header.classList.remove('revealed');
+                    }
+                    if (detector) detector.classList.add('hidden');
+
+                    isGameMaximized = false;
+                }
+            }
+
+            if (maxBtn) maxBtn.onclick = toggleMax;
+            if (maxBtn2) maxBtn2.onclick = toggleMax;
+
+            // Hover handlers for F11 auto-reveal
+            if (detector && f11Header) {
+                detector.addEventListener('mouseenter', () => {
+                    if (isGameMaximized) f11Header.classList.add('revealed');
+                });
+                f11Header.addEventListener('mouseleave', (e) => {
+                    // Hide header if mouse moves away upward or downward
+                    if (e.clientY > 50) {
+                        f11Header.classList.remove('revealed');
+                    }
+                });
+            }
 
             const iframe = document.getElementById(`${winId}-iframe`);
             if (iframe) {
@@ -591,11 +667,11 @@
             }, 10);
 
             winDiv.addEventListener('mousedown', () => { winDiv.style.zIndex = ++zIndexCounter; });
-            makeWindowDraggableCustom(winDiv, winDiv.querySelector('.game-header'));
-            makeWindowResizable(winDiv);
+            makeWindowDraggableCustom(winDiv, winDiv.querySelector('.game-header'), () => isGameMaximized);
+            makeWindowResizable(winDiv, () => isGameMaximized);
         }
 
-        function makeWindowDraggableCustom(elmnt, header) {
+        function makeWindowDraggableCustom(elmnt, header, isMaximizedCheck) {
             let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
 
             if (header) {
@@ -603,7 +679,7 @@
             }
 
             function dragMouseDown(e) {
-                if (e.target.closest('button') || e.target.closest('a')) return;
+                if ((isMaximizedCheck && isMaximizedCheck()) || e.target.closest('button') || e.target.closest('a')) return;
                 e.preventDefault();
                 elmnt.style.zIndex = ++zIndexCounter;
                 elmnt.classList.add('is-dragging');
@@ -678,16 +754,18 @@
                 winDiv.dataset.prevWidth = winDiv.style.width;
                 winDiv.dataset.prevHeight = winDiv.style.height;
 
-                winDiv.style.left = '8px';
-                winDiv.style.top = '8px';
-                winDiv.style.width = 'calc(100vw - 16px)';
-                winDiv.style.height = 'calc(100vh - 64px)';
+                winDiv.style.left = '0px';
+                winDiv.style.top = '0px';
+                winDiv.style.width = '100vw';
+                winDiv.style.height = '100vh';
+                winDiv.style.borderRadius = '0px';
                 isMaximized = true;
             } else {
                 winDiv.style.left = winDiv.dataset.prevLeft;
                 winDiv.style.top = winDiv.dataset.prevTop;
                 winDiv.style.width = winDiv.dataset.prevWidth;
                 winDiv.style.height = winDiv.dataset.prevHeight;
+                winDiv.style.borderRadius = '';
                 isMaximized = false;
             }
         }
@@ -755,7 +833,7 @@
             }
         }
 
-        function makeWindowResizable(elmnt) {
+        function makeWindowResizable(elmnt, isMaximizedCheck) {
             const handles = elmnt.querySelectorAll('.resize-handle');
             
             handles.forEach(handle => {
@@ -763,7 +841,7 @@
             });
 
             function initResize(e) {
-                if (isMaximized) return;
+                if (isMaximizedCheck && isMaximizedCheck()) return;
                 e.preventDefault();
                 e.stopPropagation();
                 
@@ -859,7 +937,7 @@
             } else {
                 if (img) {
                     img.style.backgroundImage = `url('${url}')`;
-                    img.classList.remove('opacity-0');
+                    img.classList.add('opacity-0');
                 }
                 if (video) video.classList.add('opacity-0');
             }
