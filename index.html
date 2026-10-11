@@ -1,754 +1,599 @@
-<!DOCTYPE html>
-<html lang="en" class="h-full w-full">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows 11 Fluent Glass Desktop</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            overflow: hidden;
-            background-color: #030508;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+    * {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
 
-        .clean-upscale-hd {
-            filter: contrast(1.08) saturate(1.15) brightness(0.98);
-            transform: scale(1.002);
-            will-change: transform, filter;
-            transition: filter 0.4s ease;
-        }
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        overflow: hidden;
+        background-color: #030508;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-        .clean-vivid {
-            filter: contrast(1.18) saturate(1.35) brightness(1.02);
-        }
+    .clean-upscale-hd {
+        filter: contrast(1.08) saturate(1.15) brightness(0.98);
+        transform: scale(1.002);
+        will-change: transform, filter;
+        transition: filter 0.4s ease;
+    }
 
-        .clean-cinematic {
-            filter: contrast(1.05) saturate(1.05) brightness(0.9);
-        }
+    .clean-vivid {
+        filter: contrast(1.18) saturate(1.35) brightness(1.02);
+    }
 
-        .clean-raw {
-            filter: none;
-        }
+    .clean-cinematic {
+        filter: contrast(1.05) saturate(1.05) brightness(0.9);
+    }
 
-        .glass-window {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(20, 26, 38, 0.55) 30%, rgba(10, 14, 22, 0.70) 100%);
-            backdrop-filter: blur(40px) saturate(220%);
-            -webkit-backdrop-filter: blur(40px) saturate(220%);
-            border-radius: 32px;
-            box-shadow: 
-                0 35px 90px -15px rgba(0, 0, 0, 0.8),
-                0 0 0 1px rgba(255, 255, 255, 0.28) inset,
-                0 2px 10px 0 rgba(255, 255, 255, 0.4) inset,
-                0 0 25px 0 rgba(255, 255, 255, 0.08) inset;
-            border: 1.5px solid rgba(255, 255, 255, 0.25);
-            position: relative;
-        }
+    .clean-raw {
+        filter: none;
+    }
 
-        .glass-window::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 32px;
-            padding: 1.5px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.12) 40%, rgba(255, 255, 255, 0.04) 70%, rgba(255, 255, 255, 0.3) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
+    .glass-window {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(20, 26, 38, 0.55) 30%, rgba(10, 14, 22, 0.70) 100%);
+        backdrop-filter: blur(40px) saturate(220%);
+        -webkit-backdrop-filter: blur(40px) saturate(220%);
+        border-radius: 32px;
+        box-shadow: 
+            0 35px 90px -15px rgba(0, 0, 0, 0.8),
+            0 0 0 1px rgba(255, 255, 255, 0.28) inset,
+            0 2px 10px 0 rgba(255, 255, 255, 0.4) inset,
+            0 0 25px 0 rgba(255, 255, 255, 0.08) inset;
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        position: relative;
+    }
 
-        .taskbar-glass {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(12, 16, 24, 0.75) 100%);
-            backdrop-filter: blur(45px) saturate(240%);
-            -webkit-backdrop-filter: blur(45px) saturate(240%);
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            border-radius: 9999px;
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.65),
-                0 0 20px rgba(255, 255, 255, 0.15),
-                0 1px 2px 0 rgba(255, 255, 255, 0.5) inset;
-        }
+    .glass-window::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 32px;
+        padding: 1.5px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.12) 40%, rgba(255, 255, 255, 0.04) 70%, rgba(255, 255, 255, 0.3) 100%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
 
-        .context-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(20, 26, 38, 0.82) 40%, rgba(12, 16, 24, 0.88) 100%);
-            backdrop-filter: blur(32px) saturate(210%);
-            -webkit-backdrop-filter: blur(32px) saturate(210%);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.65),
-                0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
-        }
+    .taskbar-glass {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(12, 16, 24, 0.75) 100%);
+        backdrop-filter: blur(45px) saturate(240%);
+        -webkit-backdrop-filter: blur(45px) saturate(240%);
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        border-radius: 9999px;
+        box-shadow: 
+            0 20px 50px rgba(0, 0, 0, 0.65),
+            0 0 20px rgba(255, 255, 255, 0.15),
+            0 1px 2px 0 rgba(255, 255, 255, 0.5) inset;
+    }
 
-        .glass-header-sheen {
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.06) 100%);
-        }
+    .context-glass {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(20, 26, 38, 0.82) 40%, rgba(12, 16, 24, 0.88) 100%);
+        backdrop-filter: blur(32px) saturate(210%);
+        -webkit-backdrop-filter: blur(32px) saturate(210%);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        box-shadow: 
+            0 15px 35px rgba(0, 0, 0, 0.65),
+            0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
+    }
 
-        .win-btn-hover {
-            transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
-        }
-        .win-btn-hover:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
-        }
-        .win-btn-hover:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.1);
-        }
+    .glass-header-sheen {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.06) 100%);
+    }
 
-        .is-dragging {
-            transition: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            background: rgba(10, 14, 22, 0.92) !important;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;
-            will-change: transform, left, top;
-        }
+    .win-btn-hover {
+        transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
+    }
+    .win-btn-hover:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    }
+    .win-btn-hover:active {
+        transform: scale(0.96);
+        background: rgba(255, 255, 255, 0.1);
+    }
 
-        .is-dragging iframe {
-            pointer-events: none !important;
-        }
+    .is-dragging {
+        transition: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(10, 14, 22, 0.92) !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;
+        will-change: transform, left, top;
+    }
 
-        .win-close-btn:hover {
-            background-color: #e81123 !important;
-            color: #ffffff !important;
-            box-shadow: 0 0 12px rgba(232, 17, 35, 0.4);
-        }
+    .is-dragging iframe {
+        pointer-events: none !important;
+    }
 
-        /* F11 Auto-hiding header overlay in maximized mode */
-        .f11-header-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            transform: translateY(-100%);
-            transition: transform 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
-        }
-        .f11-header-container.revealed {
-            transform: translateY(0);
-        }
-        .f11-hover-detector {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 25px;
-            z-index: 49;
-        }
+    .win-close-btn:hover {
+        background-color: #e81123 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 12px rgba(232, 17, 35, 0.4);
+    }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.22);
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.45);
-        }
+    /* F11 Auto-hiding header overlay in maximized mode */
+    .f11-header-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        transform: translateY(-100%);
+        transition: transform 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
+    }
+    .f11-header-container.revealed {
+        transform: translateY(0);
+    }
+    .f11-hover-detector {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 25px;
+        z-index: 49;
+    }
 
-        .resize-handle {
-            position: absolute;
-            z-index: 20;
-        }
-        .resize-handle-n { top: -4px; left: 0; right: 0; height: 8px; cursor: ns-resize; }
-        .resize-handle-s { bottom: -4px; left: 0; right: 0; height: 8px; cursor: ns-resize; }
-        .resize-handle-e { top: 0; bottom: 0; right: -4px; width: 8px; cursor: ew-resize; }
-        .resize-handle-w { top: 0; bottom: 0; left: -4px; width: 8px; cursor: ew-resize; }
-        .resize-handle-ne { top: -4px; right: -4px; width: 14px; height: 14px; cursor: nesw-resize; }
-        .resize-handle-nw { top: -4px; left: -4px; width: 14px; height: 14px; cursor: nwse-resize; }
-        .resize-handle-se { bottom: -4px; right: -4px; width: 14px; height: 14px; cursor: nwse-resize; }
-        .resize-handle-sw { bottom: -4px; left: -4px; width: 14px; height: 14px; cursor: nesw-resize; }
-    </style>
-</head>
-<body class="h-full w-full relative overflow-hidden text-slate-100 select-none" oncontextmenu="openContextMenu(event)" onclick="closeMenus()">
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.22);
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.45);
+    }
 
-    <div id="wallpaper-container" class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <video id="bg-video" class="w-full h-full object-cover clean-upscale-hd transition-opacity duration-700 opacity-100" autoplay loop muted playsinline>
-            <source id="bg-video-src" src="https://motionbgs.com/media/9823/beneath-the-forgotten-arc.960x540.mp4" type="video/mp4">
-        </video>
-        <div id="bg-image" class="absolute inset-0 bg-cover bg-center transition-opacity duration-700 opacity-0"></div>
-    </div>
+    .resize-handle {
+        position: absolute;
+        z-index: 20;
+    }
+    .resize-handle-n { top: -4px; left: 0; right: 0; height: 8px; cursor: ns-resize; }
+    .resize-handle-s { bottom: -4px; left: 0; right: 0; height: 8px; cursor: ns-resize; }
+    .resize-handle-e { top: 0; bottom: 0; right: -4px; width: 8px; cursor: ew-resize; }
+    .resize-handle-w { top: 0; bottom: 0; left: -4px; width: 8px; cursor: ew-resize; }
+    .resize-handle-ne { top: -4px; right: -4px; width: 14px; height: 14px; cursor: nesw-resize; }
+    .resize-handle-nw { top: -4px; left: -4px; width: 14px; height: 14px; cursor: nwse-resize; }
+    .resize-handle-se { bottom: -4px; right: -4px; width: 14px; height: 14px; cursor: nwse-resize; }
+    .resize-handle-sw { bottom: -4px; left: -4px; width: 14px; height: 14px; cursor: nesw-resize; }
+</style>
 
-    <div id="windows-container" class="absolute inset-0 z-20 pointer-events-none"></div>
 
-    <main id="desktop-grid" class="relative z-10 h-[calc(100vh-68px)] w-full p-6 grid grid-flow-col grid-rows-6 gap-4 content-start justify-start">
-        <div class="group flex flex-col items-center justify-center p-3 rounded-3xl bg-white/5 hover:bg-white/15 border border-white/20 hover:border-white/40 shadow-lg shadow-black/30 backdrop-blur-md transition duration-200 cursor-pointer w-28 h-28" onclick="openApp(); event.stopPropagation();">
-            <div class="w-12 h-12 rounded-2xl bg-black/60 border border-white/20 flex items-center justify-center text-white text-2xl shadow-lg shadow-black/50 group-hover:scale-110 transition duration-200">
-                <i class="fa-solid fa-gamepad"></i>
-            </div>
-            <span class="mt-2 text-xs font-semibold text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-wide">GamingBrothers 104</span>
+<div id="wallpaper-container" class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <video id="bg-video" class="w-full h-full object-cover clean-upscale-hd transition-opacity duration-700 opacity-100" autoplay loop muted playsinline>
+        <source id="bg-video-src" src="https://motionbgs.com/media/9823/beneath-the-forgotten-arc.960x540.mp4" type="video/mp4">
+    </video>
+    <div id="bg-image" class="absolute inset-0 bg-cover bg-center transition-opacity duration-700 opacity-0"></div>
+</div>
+
+<div id="windows-container" class="absolute inset-0 z-20 pointer-events-none"></div>
+
+<main id="desktop-grid" class="relative z-10 h-[calc(100vh-68px)] w-full p-6 grid grid-flow-col grid-rows-6 gap-4 content-start justify-start">
+    <div class="group flex flex-col items-center justify-center p-3 rounded-3xl bg-white/5 hover:bg-white/15 border border-white/20 hover:border-white/40 shadow-lg shadow-black/30 backdrop-blur-md transition duration-200 cursor-pointer w-28 h-28" onclick="openApp(); event.stopPropagation();">
+        <div class="w-12 h-12 rounded-2xl bg-black/60 border border-white/20 flex items-center justify-center text-white text-2xl shadow-lg shadow-black/50 group-hover:scale-110 transition duration-200">
+            <i class="fa-solid fa-gamepad"></i>
         </div>
-    </main>
+        <span class="mt-2 text-xs font-semibold text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-wide">GamingBrothers 104</span>
+    </div>
+</main>
 
-    <div class="fixed bottom-3 left-0 right-0 z-30 flex justify-center px-4 pointer-events-none">
-        <footer class="pointer-events-auto relative h-12 w-auto taskbar-glass px-5 py-1.5 flex items-center space-x-4 transition-all duration-300">
-            <span class="text-[11px] text-slate-100 font-bold px-3 py-1 rounded-full bg-white/15 border border-white/25 tracking-wider shadow-md backdrop-blur-lg">GamingBrothers 104</span>
+<div class="fixed bottom-3 left-0 right-0 z-30 flex justify-center px-4 pointer-events-none">
+    <footer class="pointer-events-auto relative h-12 w-auto taskbar-glass px-5 py-1.5 flex items-center space-x-4 transition-all duration-300">
+        <span class="text-[11px] text-slate-100 font-bold px-3 py-1 rounded-full bg-white/15 border border-white/25 tracking-wider shadow-md backdrop-blur-lg">GamingBrothers 104</span>
 
-            <button id="taskbar-app-btn" onclick="toggleAppWindow()" class="relative win-btn-hover p-2.5 rounded-full text-slate-200 hover:text-white border border-white/10" title="GamingBrothers 104">
-                <i class="fa-solid fa-gamepad text-base"></i>
-                <span id="app-dock-indicator" class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white opacity-0 transition-opacity shadow-sm shadow-white"></span>
+        <button id="taskbar-app-btn" onclick="toggleAppWindow()" class="relative win-btn-hover p-2.5 rounded-full text-slate-200 hover:text-white border border-white/10" title="GamingBrothers 104">
+            <i class="fa-solid fa-gamepad text-base"></i>
+            <span id="app-dock-indicator" class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white opacity-0 transition-opacity shadow-sm shadow-white"></span>
+        </button>
+
+        <div class="h-4 w-[1px] bg-white/20"></div>
+
+        <div class="flex items-center space-x-2 text-xs">
+            <div class="flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition cursor-pointer text-slate-100 shadow-sm">
+                <i class="fa-solid fa-wifi text-[11px]"></i>
+                <i class="fa-solid fa-volume-high text-[11px]"></i>
+                <div class="flex items-center space-x-1" title="Battery Status">
+                    <i id="battery-icon" class="fa-solid fa-battery-three-quarters text-emerald-400 text-[11px]"></i>
+                    <span id="battery-level" class="text-[10px] font-medium text-slate-200">--%</span>
+                </div>
+            </div>
+
+            <div class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition cursor-pointer text-center shadow-sm">
+                <div id="taskbar-time" class="font-semibold text-[11px] text-white">00:00:00</div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div id="context-menu" class="hidden absolute z-50 w-56 context-glass p-1.5 shadow-2xl text-xs" onclick="event.stopPropagation()">
+    <div onclick="openApp(); closeMenus();" class="px-3 py-2 rounded-xl hover:bg-white/10 flex items-center space-x-2.5 cursor-pointer text-slate-200 hover:text-white transition">
+        <i class="fa-solid fa-gamepad text-white w-4"></i>
+        <span>Open GamingBrothers 104</span>
+    </div>
+    <div onclick="toggleSettingsModal(); closeMenus();" class="px-3 py-2 rounded-xl hover:bg-white/10 flex items-center space-x-2.5 cursor-pointer text-slate-200 hover:text-white transition">
+        <i class="fa-solid fa-wand-magic-sparkles text-amber-400 w-4"></i>
+        <span>Personalize Desktop...</span>
+    </div>
+    <div class="h-[1px] bg-white/10 my-1"></div>
+    <div onclick="location.reload()" class="px-3 py-2 rounded-xl hover:bg-white/10 flex items-center space-x-2.5 cursor-pointer text-slate-200 hover:text-white transition">
+        <i class="fa-solid fa-rotate text-emerald-400 w-4"></i>
+        <span>Refresh Desktop</span>
+    </div>
+</div>
+
+<div id="settings-modal" class="hidden absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md" onclick="toggleSettingsModal()">
+    <div class="glass-window w-[28rem] p-6 shadow-2xl" onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+            <div class="flex items-center space-x-2.5">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-sm"></i>
+                <h3 class="text-sm font-semibold text-white">Desktop Personalization</h3>
+            </div>
+            <button onclick="toggleSettingsModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-slate-300 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-xs"></i>
             </button>
+        </div>
 
-            <div class="h-4 w-[1px] bg-white/20"></div>
-
-            <div class="flex items-center space-x-2 text-xs">
-                <div class="flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition cursor-pointer text-slate-100 shadow-sm">
-                    <i class="fa-solid fa-wifi text-[11px]"></i>
-                    <i class="fa-solid fa-volume-high text-[11px]"></i>
-                    <div class="flex items-center space-x-1" title="Battery Status">
-                        <i id="battery-icon" class="fa-solid fa-battery-three-quarters text-emerald-400 text-[11px]"></i>
-                        <span id="battery-level" class="text-[10px] font-medium text-slate-200">--%</span>
-                    </div>
-                </div>
-
-                <div class="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition cursor-pointer text-center shadow-sm">
-                    <div id="taskbar-time" class="font-semibold text-[11px] text-white">00:00:00</div>
+        <div class="mt-4 space-y-5 text-xs">
+            <div>
+                <label class="block text-slate-300 font-medium mb-1.5">Custom Background URL (MP4 / Image):</label>
+                <div class="flex space-x-2">
+                    <input id="custom-url-input" type="text" placeholder="https://..." class="flex-1 bg-black/40 border border-white/15 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400">
+                    <button onclick="applyCustomUrl()" class="px-4 py-2 bg-cyan-600/80 hover:bg-cyan-500 text-white font-medium rounded-xl border border-cyan-400/40 transition">Apply</button>
                 </div>
             </div>
-        </footer>
-    </div>
 
-    <div id="context-menu" class="hidden absolute z-50 w-56 context-glass p-1.5 shadow-2xl text-xs" onclick="event.stopPropagation()">
-        <div onclick="openApp(); closeMenus();" class="px-3 py-2 rounded-xl hover:bg-white/10 flex items-center space-x-2.5 cursor-pointer text-slate-200 hover:text-white transition">
-            <i class="fa-solid fa-gamepad text-white w-4"></i>
-            <span>Open GamingBrothers 104</span>
-        </div>
-        <div onclick="toggleSettingsModal(); closeMenus();" class="px-3 py-2 rounded-xl hover:bg-white/10 flex items-center space-x-2.5 cursor-pointer text-slate-200 hover:text-white transition">
-            <i class="fa-solid fa-wand-magic-sparkles text-amber-400 w-4"></i>
-            <span>Personalize Desktop...</span>
-        </div>
-        <div class="h-[1px] bg-white/10 my-1"></div>
-        <div onclick="location.reload()" class="px-3 py-2 rounded-xl hover:bg-white/10 flex items-center space-x-2.5 cursor-pointer text-slate-200 hover:text-white transition">
-            <i class="fa-solid fa-rotate text-emerald-400 w-4"></i>
-            <span>Refresh Desktop</span>
-        </div>
-    </div>
-
-    <div id="settings-modal" class="hidden absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md" onclick="toggleSettingsModal()">
-        <div class="glass-window w-[28rem] p-6 shadow-2xl" onclick="event.stopPropagation()">
-            <div class="flex items-center justify-between pb-4 border-b border-white/10">
-                <div class="flex items-center space-x-2.5">
-                    <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-sm"></i>
-                    <h3 class="text-sm font-semibold text-white">Desktop Personalization</h3>
-                </div>
-                <button onclick="toggleSettingsModal()" class="w-7 h-7 rounded-lg hover:bg-white/10 text-slate-300 flex items-center justify-center">
-                    <i class="fa-solid fa-xmark text-xs"></i>
-                </button>
-            </div>
-
-            <div class="mt-4 space-y-5 text-xs">
-                <div>
-                    <label class="block text-slate-300 font-medium mb-1.5">Custom Background URL (MP4 / Image):</label>
-                    <div class="flex space-x-2">
-                        <input id="custom-url-input" type="text" placeholder="https://..." class="flex-1 bg-black/40 border border-white/15 rounded-xl px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400">
-                        <button onclick="applyCustomUrl()" class="px-4 py-2 bg-cyan-600/80 hover:bg-cyan-500 text-white font-medium rounded-xl border border-cyan-400/40 transition">Apply</button>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-slate-300 font-medium mb-1.5">Video Clarity & Vibrance Modes:</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="setPreset('clean-upscale-hd')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
-                            <div class="text-cyan-400 font-semibold">Clean HD Boost</div>
-                            <div class="text-[10px] text-slate-400">Balanced contrast & clarity</div>
-                        </button>
-                        <button onclick="setPreset('clean-vivid')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
-                            <div class="text-amber-400 font-semibold">Vivid Color</div>
-                            <div class="text-[10px] text-slate-400">Rich vibrant tones</div>
-                        </button>
-                        <button onclick="setPreset('clean-cinematic')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
-                            <div class="text-purple-400 font-semibold">Cinematic Soft</div>
-                            <div class="text-[10px] text-slate-400">Subtle low contrast</div>
-                        </button>
-                        <button onclick="setPreset('clean-raw')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
-                            <div class="text-slate-300 font-semibold">Original Raw</div>
-                            <div class="text-[10px] text-slate-400">Unfiltered natural video</div>
-                        </button>
-                    </div>
+            <div>
+                <label class="block text-slate-300 font-medium mb-1.5">Video Clarity & Vibrance Modes:</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="setPreset('clean-upscale-hd')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
+                        <div class="text-cyan-400 font-semibold">Clean HD Boost</div>
+                        <div class="text-[10px] text-slate-400">Balanced contrast & clarity</div>
+                    </button>
+                    <button onclick="setPreset('clean-vivid')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
+                        <div class="text-amber-400 font-semibold">Vivid Color</div>
+                        <div class="text-[10px] text-slate-400">Rich vibrant tones</div>
+                    </button>
+                    <button onclick="setPreset('clean-cinematic')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
+                        <div class="text-purple-400 font-semibold">Cinematic Soft</div>
+                        <div class="text-[10px] text-slate-400">Subtle low contrast</div>
+                    </button>
+                    <button onclick="setPreset('clean-raw')" class="p-2.5 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 text-left font-medium text-slate-200 hover:border-cyan-400/50 transition">
+                        <div class="text-slate-300 font-semibold">Original Raw</div>
+                        <div class="text-[10px] text-slate-400">Unfiltered natural video</div>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            
-            const timeEl = document.getElementById('taskbar-time');
-            if (timeEl) timeEl.innerText = `${hours}:${minutes}:${seconds}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+<script>
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        const timeEl = document.getElementById('taskbar-time');
+        if (timeEl) timeEl.innerText = `${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-        async function updateBatteryStatus() {
-            const batteryIcon = document.getElementById('battery-icon');
-            const batteryLevel = document.getElementById('battery-level');
-            
-            if ('getBattery' in navigator) {
-                try {
-                    const battery = await navigator.getBattery();
-                    const updateUI = () => {
-                        const level = Math.round(battery.level * 100);
-                        if (batteryLevel) batteryLevel.innerText = `${level}%`;
-                        
-                        if (batteryIcon) {
-                            if (battery.charging) {
-                                batteryIcon.className = "fa-solid fa-battery-charging text-yellow-400 text-[11px]";
-                            } else if (level > 75) {
-                                batteryIcon.className = "fa-solid fa-battery-full text-emerald-400 text-[11px]";
-                            } else if (level > 40) {
-                                batteryIcon.className = "fa-solid fa-battery-three-quarters text-emerald-400 text-[11px]";
-                            } else if (level > 15) {
-                                batteryIcon.className = "fa-solid fa-battery-half text-amber-400 text-[11px]";
-                            } else {
-                                batteryIcon.className = "fa-solid fa-battery-quarter text-red-400 text-[11px]";
-                            }
+    async function updateBatteryStatus() {
+        const batteryIcon = document.getElementById('battery-icon');
+        const batteryLevel = document.getElementById('battery-level');
+        
+        if ('getBattery' in navigator) {
+            try {
+                const battery = await navigator.getBattery();
+                const updateUI = () => {
+                    const level = Math.round(battery.level * 100);
+                    if (batteryLevel) batteryLevel.innerText = `${level}%`;
+                    
+                    if (batteryIcon) {
+                        if (battery.charging) {
+                            batteryIcon.className = "fa-solid fa-battery-charging text-yellow-400 text-[11px]";
+                        } else if (level > 75) {
+                            batteryIcon.className = "fa-solid fa-battery-full text-emerald-400 text-[11px]";
+                        } else if (level > 40) {
+                            batteryIcon.className = "fa-solid fa-battery-three-quarters text-emerald-400 text-[11px]";
+                        } else if (level > 15) {
+                            batteryIcon.className = "fa-solid fa-battery-half text-amber-400 text-[11px]";
+                        } else {
+                            batteryIcon.className = "fa-solid fa-battery-quarter text-red-400 text-[11px]";
                         }
-                    };
+                    }
+                };
 
-                    updateUI();
-                    battery.addEventListener('levelchange', updateUI);
-                    battery.addEventListener('chargingchange', updateUI);
-                } catch (e) {
-                    if (batteryLevel) batteryLevel.innerText = "100%";
-                }
-            } else {
+                updateUI();
+                battery.addEventListener('levelchange', updateUI);
+                battery.addEventListener('chargingchange', updateUI);
+            } catch (e) {
                 if (batteryLevel) batteryLevel.innerText = "100%";
             }
+        } else {
+            if (batteryLevel) batteryLevel.innerText = "100%";
         }
-        updateBatteryStatus();
+    }
+    updateBatteryStatus();
 
-        let isAppOpen = false;
-        let isMinimized = false;
-        let isMaximized = false;
-        let zIndexCounter = 30;
+    let isAppOpen = false;
+    let isMinimized = false;
+    let isMaximized = false;
+    let zIndexCounter = 30;
 
-        const gameLibrary = [
-            { 
-                id: 1, 
-                title: "Skate 3", 
-                icon: "fa-person-skateboarding", 
-                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets-prd.ignimgs.com%2F2022%2F01%2F07%2Fskate-3-button-1641599749809.jpg&f=1&nofb=1&ipt=a12e315809c4254893bad36e9f8ee27c7cf8fafc29a70859fb1af6a93884357f&ipo=images",
-                url: "https://skate.aaddpp.lol/?low=1&fps=15&res=640x480",
-                embedCode: ""
-            },
-            { 
-                id: 2, 
-                title: "GTA 5", 
-                icon: "fa-car", 
-                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets-prd.ignimgs.com%2F2021%2F12%2F17%2Fgta-5-button-2021-1639777058682.jpg&f=1&nofb=1&ipt=34c95eb5e614da25ef89926ec31548be930d479f1f2bc57618aaaa1de4a3e421&ipo=images",
-                url: "https://playgta5-tau.vercel.app/?low=1&fps=30&res=1280x720",
-                embedCode: ""
-            },
-            { 
-                id: 3, 
-                title: "BO1 Zombies", 
-                icon: "fa-skull-crossbones", 
-                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fportpowered.fun%2Fassets%2Fbo1-zombies-xsGi-bOr.jpg&f=1&nofb=1&ipt=83f0f3ddea65c17f7479c2838fb41508581f9117ee73c55e903ce83551e1e403&ipo=images",
-                url: "https://vel.gg/bo1z",
-                embedCode: ""
-            },
-            { 
-                id: 4, 
-                title: "Half-Life", 
-                icon: "fa-cube", 
-                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fhalf-life.com%2Fimages%2Fhalflife25%2FHLwallpaper01_16x9.jpg&f=1&nofb=1&ipt=8f773ce3c415a4b564f3ac6d1495adccac36c7b38d44745ab8dbd28f2c9eaf7d&ipo=images",
-                url: "https://pixelsuft.github.io/hl/",
-                embedCode: ""
-            },
-            { 
-                id: 5, 
-                title: "CSSurf", 
-                icon: "fa-person-running", 
-                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcloud.cybershoke.net%2Fimg%2Fmaps%2F2%2Fsurf_boreas.jpg&f=1&nofb=1&ipt=7a8caa4845df718a64a3278445eebd8f9f7e93b9841bcb11dd8cf63efc56b780&ipo=images",
-                url: "https://surfd.net/",
-                embedCode: ""
-            },
-            { 
-                id: 6, 
-                title: "DOOM Retro", 
-                icon: "fa-skull", 
-                cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80",
-                url: "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Foriginal%2F2X%2F3%2F32d8478d154dfb9b657e201b178419f20e97d197.jsdos",
-                embedCode: ""
+    const gameLibrary = [
+        { 
+            id: 1, 
+            title: "Skate 3", 
+            icon: "fa-person-skateboarding", 
+            cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets-prd.ignimgs.com%2F2022%2F01%2F07%2Fskate-3-button-1641599749809.jpg&f=1&nofb=1&ipt=a12e315809c4254893bad36e9f8ee27c7cf8fafc29a70859fb1af6a93884357f&ipo=images",
+            url: "https://skate.aaddpp.lol/?low=1&fps=15&res=640x480",
+            embedCode: ""
+        },
+        { 
+            id: 2, 
+            title: "GTA 5", 
+            icon: "fa-car", 
+            cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets-prd.ignimgs.com%2F2021%2F12%2F17%2Fgta-5-button-2021-1639777058682.jpg&f=1&nofb=1&ipt=34c95eb5e614da25ef89926ec31548be930d479f1f2bc57618aaaa1de4a3e421&ipo=images",
+            url: "https://playgta5-tau.vercel.app/?low=1&fps=30&res=1280x720",
+            embedCode: ""
+        },
+        { 
+            id: 3, 
+            title: "BO1 Zombies", 
+            icon: "fa-skull-crossbones", 
+            cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fportpowered.fun%2Fassets%2Fbo1-zombies-xsGi-bOr.jpg&f=1&nofb=1&ipt=83f0f3ddea65c17f7479c2838fb41508581f9117ee73c55e903ce83551e1e403&ipo=images",
+            url: "https://vel.gg/bo1z",
+            embedCode: ""
+        },
+        { 
+            id: 4, 
+            title: "Half-Life", 
+            icon: "fa-cube", 
+            cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.cloudflare.steamstatic.com%2Fhalf-life.com%2Fimages%2Fhalflife25%2FHLwallpaper01_16x9.jpg&f=1&nofb=1&ipt=8f773ce3c415a4b564f3ac6d1495adccac36c7b38d44745ab8dbd28f2c9eaf7d&ipo=images",
+            url: "https://pixelsuft.github.io/hl/",
+            embedCode: ""
+        },
+        { 
+            id: 5, 
+            title: "CSSurf", 
+            icon: "fa-person-running", 
+            cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcloud.cybershoke.net%2Fimg%2Fmaps%2F2%2Fsurf_boreas.jpg&f=1&nofb=1&ipt=7a8caa4845df718a64a3278445eebd8f9f7e93b9841bcb11dd8cf63efc56b780&ipo=images",
+            url: "https://surfd.net/",
+            embedCode: ""
+        },
+        { 
+            id: 6, 
+            title: "DOOM Retro", 
+            icon: "fa-skull", 
+            cover: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80",
+            url: "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Foriginal%2F2X%2F3%2F32d8478d154dfb9b657e201b178419f20e97d197.jsdos",
+            embedCode: ""
+        }
+    ];
+
+    function openApp() {
+        if (isAppOpen) {
+            if (isMinimized) {
+                unminimizeApp();
+            } else {
+                focusApp();
             }
-        ];
+            return;
+        }
 
-        function openApp() {
-            if (isAppOpen) {
-                if (isMinimized) {
-                    unminimizeApp();
-                } else {
-                    focusApp();
-                }
-                return;
-            }
+        isAppOpen = true;
+        isMinimized = false;
+        const indicator = document.getElementById('app-dock-indicator');
+        if (indicator) indicator.classList.remove('opacity-0');
 
-            isAppOpen = true;
-            isMinimized = false;
-            const indicator = document.getElementById('app-dock-indicator');
-            if (indicator) indicator.classList.remove('opacity-0');
+        const container = document.getElementById('windows-container');
+        const winWidth = Math.min(880, window.innerWidth - 40);
+        const winHeight = Math.min(600, window.innerHeight - 100);
+        const posX = (window.innerWidth - winWidth) / 2;
+        const posY = (window.innerHeight - winHeight) / 2 - 20;
 
-            const container = document.getElementById('windows-container');
-            const winWidth = Math.min(880, window.innerWidth - 40);
-            const winHeight = Math.min(600, window.innerHeight - 100);
-            const posX = (window.innerWidth - winWidth) / 2;
-            const posY = (window.innerHeight - winHeight) / 2 - 20;
+        const winDiv = document.createElement('div');
+        winDiv.id = 'app-window';
+        winDiv.className = 'absolute pointer-events-auto glass-window flex flex-col overflow-hidden transition-all duration-200 transform scale-95 opacity-0';
+        winDiv.style.width = `${winWidth}px`;
+        winDiv.style.height = `${winHeight}px`;
+        winDiv.style.left = `${posX}px`;
+        winDiv.style.top = `${posY}px`;
+        winDiv.style.zIndex = ++zIndexCounter;
 
-            const winDiv = document.createElement('div');
-            winDiv.id = 'app-window';
-            winDiv.className = 'absolute pointer-events-auto glass-window flex flex-col overflow-hidden transition-all duration-200 transform scale-95 opacity-0';
-            winDiv.style.width = `${winWidth}px`;
-            winDiv.style.height = `${winHeight}px`;
-            winDiv.style.left = `${posX}px`;
-            winDiv.style.top = `${posY}px`;
-            winDiv.style.zIndex = ++zIndexCounter;
+        winDiv.innerHTML = `
+            <div class="resize-handle resize-handle-n"></div>
+            <div class="resize-handle resize-handle-s"></div>
+            <div class="resize-handle resize-handle-e"></div>
+            <div class="resize-handle resize-handle-w"></div>
+            <div class="resize-handle resize-handle-ne"></div>
+            <div class="resize-handle resize-handle-nw"></div>
+            <div class="resize-handle resize-handle-se"></div>
+            <div class="resize-handle resize-handle-sw"></div>
 
-            winDiv.innerHTML = `
-                <div class="resize-handle resize-handle-n"></div>
-                <div class="resize-handle resize-handle-s"></div>
-                <div class="resize-handle resize-handle-e"></div>
-                <div class="resize-handle resize-handle-w"></div>
-                <div class="resize-handle resize-handle-ne"></div>
-                <div class="resize-handle resize-handle-nw"></div>
-                <div class="resize-handle resize-handle-se"></div>
-                <div class="resize-handle resize-handle-sw"></div>
+            <div id="app-window-header" class="h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing">
+                <div class="flex items-center space-x-2.5">
+                    <i class="fa-solid fa-gamepad text-xs text-white"></i>
+                    <span class="text-xs font-semibold text-slate-200 tracking-wide">GamingBrothers 104</span>
+                </div>
+                <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
+                    <button onclick="minimizeApp()" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
+                        <i class="fa-solid fa-minus text-[10px]"></i>
+                    </button>
+                    <button onclick="toggleMaximizeApp()" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
+                        <i class="fa-regular fa-square text-[9px]"></i>
+                    </button>
+                    <button onclick="closeApp()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                </div>
+            </div>
 
-                <div id="app-window-header" class="h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing">
-                    <div class="flex items-center space-x-2.5">
-                        <i class="fa-solid fa-gamepad text-xs text-white"></i>
-                        <span class="text-xs font-semibold text-slate-200 tracking-wide">GamingBrothers 104</span>
+            <div class="flex-1 p-5 flex flex-col overflow-y-auto">
+                <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+                    <div class="flex items-center space-x-3 text-xs">
+                        <span class="text-sm font-bold text-white tracking-wide">GamingBrothers Vault</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-[10px] font-semibold border border-white/15">${gameLibrary.length} Games Available</span>
                     </div>
-                    <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
-                        <button onclick="minimizeApp()" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
-                            <i class="fa-solid fa-minus text-[10px]"></i>
-                        </button>
-                        <button onclick="toggleMaximizeApp()" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
+                </div>
+
+                <div id="game-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 flex-1">
+                    ${renderGameCards()}
+                </div>
+            </div>
+        `;
+
+        container.appendChild(winDiv);
+
+        setTimeout(() => {
+            winDiv.classList.remove('scale-95', 'opacity-0');
+        }, 10);
+
+        winDiv.addEventListener('mousedown', focusApp);
+        makeWindowDraggable(winDiv);
+        makeWindowResizable(winDiv);
+    }
+
+    function renderGameCards() {
+        return gameLibrary.map((game, idx) => `
+            <div onclick="launchGameByIndex(${idx})" class="group relative rounded-2xl bg-black/70 hover:bg-black/90 border border-white/15 hover:border-cyan-400/50 backdrop-blur-md shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between h-48 cursor-pointer">
+                <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-300" style="background-image: url('${game.cover}');"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+
+                <div class="relative z-10 p-3 flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
+                        Playable
+                    </span>
+                    <i class="fa-solid ${game.icon} text-slate-300 text-xs"></i>
+                </div>
+
+                <div class="relative z-10 p-3 pt-0">
+                    <h4 class="text-sm font-bold text-white drop-shadow-md truncate">${game.title}</h4>
+                    <div class="mt-2 flex items-center justify-between">
+                        <span class="w-full py-1.5 text-center rounded-xl bg-white/15 group-hover:bg-cyan-500 text-white text-xs font-semibold transition border border-white/20 shadow-md">
+                            Launch Game
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function launchGameByIndex(index) {
+        const game = gameLibrary[index];
+        if (game) {
+            launchGame(game.title, game.icon, game.url, game.embedCode);
+        }
+    }
+
+    function launchGame(title, icon, url, embedCode) {
+        const container = document.getElementById('windows-container');
+        const winWidth = Math.min(920, window.innerWidth - 60);
+        const winHeight = Math.min(640, window.innerHeight - 80);
+        const posX = (window.innerWidth - winWidth) / 2 + Math.random() * 20 - 10;
+        const posY = (window.innerHeight - winHeight) / 2 + Math.random() * 20 - 10;
+
+        const winDiv = document.createElement('div');
+        winDiv.className = 'absolute pointer-events-auto glass-window flex flex-col overflow-hidden transition-all duration-200 transform scale-95 opacity-0';
+        winDiv.style.width = `${winWidth}px`;
+        winDiv.style.height = `${winHeight}px`;
+        winDiv.style.left = `${posX}px`;
+        winDiv.style.top = `${posY}px`;
+        winDiv.style.zIndex = ++zIndexCounter;
+
+        const winId = 'game-win-' + Math.random().toString(36).substring(2, 7);
+        winDiv.id = winId;
+        let isGameMaximized = false;
+
+        winDiv.innerHTML = `
+            <div class="resize-handle resize-handle-n"></div>
+            <div class="resize-handle resize-handle-s"></div>
+            <div class="resize-handle resize-handle-e"></div>
+            <div class="resize-handle resize-handle-w"></div>
+            <div class="resize-handle resize-handle-ne"></div>
+            <div class="resize-handle resize-handle-nw"></div>
+            <div class="resize-handle resize-handle-se"></div>
+            <div class="resize-handle resize-handle-sw"></div>
+
+            <div class="f11-hover-detector hidden" id="${winId}-detector"></div>
+            <div class="f11-header-container" id="${winId}-f11-header">
+                <div class="game-header h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing backdrop-blur-xl bg-black/80">
+                    <div class="flex items-center space-x-2.5">
+                        <i class="fa-solid ${icon} text-xs text-white"></i>
+                        <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5" onclick="event.stopPropagation()">
+                        ${url ? `<a href="${url}" target="_blank" title="Open in New Tab (Bypasses iframe restrictions)" class="px-2.5 py-1 rounded-lg bg-cyan-600/70 hover:bg-cyan-500 text-white text-[10px] font-semibold transition flex items-center space-x-1.5 border border-cyan-400/40 shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            <span>Open in Tab</span>
+                        </a>` : ''}
+                        <button id="${winId}-max-btn" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center" title="Maximize / F11 mode">
                             <i class="fa-regular fa-square text-[9px]"></i>
                         </button>
-                        <button onclick="closeApp()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center">
+                        <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center" title="Close">
                             <i class="fa-solid fa-xmark text-xs"></i>
                         </button>
                     </div>
                 </div>
+            </div>
 
-                <div class="flex-1 p-5 flex flex-col overflow-y-auto">
-                    <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-                        <div class="flex items-center space-x-3 text-xs">
-                            <span class="text-sm font-bold text-white tracking-wide">GamingBrothers Vault</span>
-                            <span class="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-[10px] font-semibold border border-white/15">${gameLibrary.length} Games Available</span>
-                        </div>
+            <div class="normal-header-wrapper" id="${winId}-normal-header">
+                <div class="game-header h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing">
+                    <div class="flex items-center space-x-2.5">
+                        <i class="fa-solid ${icon} text-xs text-white"></i>
+                        <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
                     </div>
-
-                    <div id="game-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 flex-1">
-                        ${renderGameCards()}
-                    </div>
-                </div>
-            `;
-
-            container.appendChild(winDiv);
-
-            setTimeout(() => {
-                winDiv.classList.remove('scale-95', 'opacity-0');
-            }, 10);
-
-            winDiv.addEventListener('mousedown', focusApp);
-            makeWindowDraggable(winDiv);
-            makeWindowResizable(winDiv);
-        }
-
-        function renderGameCards() {
-            return gameLibrary.map((game, idx) => `
-                <div onclick="launchGameByIndex(${idx})" class="group relative rounded-2xl bg-black/70 hover:bg-black/90 border border-white/15 hover:border-cyan-400/50 backdrop-blur-md shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between h-48 cursor-pointer">
-                    <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-300" style="background-image: url('${game.cover}');"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-
-                    <div class="relative z-10 p-3 flex items-center justify-between">
-                        <span class="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
-                            Playable
-                        </span>
-                        <i class="fa-solid ${game.icon} text-slate-300 text-xs"></i>
-                    </div>
-
-                    <div class="relative z-10 p-3 pt-0">
-                        <h4 class="text-sm font-bold text-white drop-shadow-md truncate">${game.title}</h4>
-                        <div class="mt-2 flex items-center justify-between">
-                            <span class="w-full py-1.5 text-center rounded-xl bg-white/15 group-hover:bg-cyan-500 text-white text-xs font-semibold transition border border-white/20 shadow-md">
-                                Launch Game
-                            </span>
-                        </div>
+                    <div class="flex items-center space-x-1.5" onclick="event.stopPropagation()">
+                        ${url ? `<a href="${url}" target="_blank" title="Open in New Tab (Bypasses iframe restrictions)" class="px-2.5 py-1 rounded-lg bg-cyan-600/70 hover:bg-cyan-500 text-white text-[10px] font-semibold transition flex items-center space-x-1.5 border border-cyan-400/40 shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            <span>Open in Tab</span>
+                        </a>` : ''}
+                        <button id="${winId}-max-btn-2" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center" title="Maximize">
+                            <i class="fa-regular fa-square text-[9px]"></i>
+                        </button>
+                        <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center" title="Close">
+                            <i class="fa-solid fa-xmark text-xs"></i>
+                        </button>
                     </div>
                 </div>
-            `).join('');
-        }
+            </div>
 
-        function launchGameByIndex(index) {
-            const game = gameLibrary[index];
-            if (game) {
-                launchGame(game.title, game.icon, game.url, game.embedCode);
-            }
-        }
+            <div class="flex-1 w-full h-full bg-black relative">
+                <iframe id="${winId}-iframe" class="w-full h-full border-0" allow="autoplay; gamepad; fullscreen; accelerometer; gyroscope; cross-origin-isolated" allowfullscreen></iframe>
+            </div>
+        `;
 
-        function launchGame(title, icon, url, embedCode) {
-            const container = document.getElementById('windows-container');
-            const winWidth = Math.min(920, window.innerWidth - 60);
-            const winHeight = Math.min(640, window.innerHeight - 80);
-            const posX = (window.innerWidth - winWidth) / 2 + Math.random() * 20 - 10;
-            const posY = (window.innerHeight - winHeight) / 2 + Math.random() * 20 - 10;
+        container.appendChild(winDiv);
 
-            const winDiv = document.createElement('div');
-            winDiv.className = 'absolute pointer-events-auto glass-window flex flex-col overflow-hidden transition-all duration-200 transform scale-95 opacity-0';
-            winDiv.style.width = `${winWidth}px`;
-            winDiv.style.height = `${winHeight}px`;
-            winDiv.style.left = `${posX}px`;
-            winDiv.style.top = `${posY}px`;
+        const maxBtn = document.getElementById(`${winId}-max-btn`);
+        const maxBtn2 = document.getElementById(`${winId}-max-btn-2`);
+        const f11Header = document.getElementById(`${winId}-f11-header`);
+        const normalHeader = document.getElementById(`${winId}-normal-header`);
+        const detector = document.getElementById(`${winId}-detector`);
+
+        function toggleMax() {
             winDiv.style.zIndex = ++zIndexCounter;
-
-            const winId = 'game-win-' + Math.random().toString(36).substring(2, 7);
-            winDiv.id = winId;
-            let isGameMaximized = false;
-
-            winDiv.innerHTML = `
-                <div class="resize-handle resize-handle-n"></div>
-                <div class="resize-handle resize-handle-s"></div>
-                <div class="resize-handle resize-handle-e"></div>
-                <div class="resize-handle resize-handle-w"></div>
-                <div class="resize-handle resize-handle-ne"></div>
-                <div class="resize-handle resize-handle-nw"></div>
-                <div class="resize-handle resize-handle-se"></div>
-                <div class="resize-handle resize-handle-sw"></div>
-
-                <div class="f11-hover-detector hidden" id="${winId}-detector"></div>
-                <div class="f11-header-container" id="${winId}-f11-header">
-                    <div class="game-header h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing backdrop-blur-xl bg-black/80">
-                        <div class="flex items-center space-x-2.5">
-                            <i class="fa-solid ${icon} text-xs text-white"></i>
-                            <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
-                        </div>
-                        <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
-                            ${url ? `<a href="${url}" target="_blank" title="Open directly in browser" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>` : ''}
-                            <button id="${winId}-max-btn" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center" title="Maximize / F11 mode">
-                                <i class="fa-regular fa-square text-[9px]"></i>
-                            </button>
-                            <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center" title="Close">
-                                <i class="fa-solid fa-xmark text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="normal-header-wrapper" id="${winId}-normal-header">
-                    <div class="game-header h-11 px-5 flex items-center justify-between border-b border-white/10 glass-header-sheen cursor-grab active:cursor-grabbing">
-                        <div class="flex items-center space-x-2.5">
-                            <i class="fa-solid ${icon} text-xs text-white"></i>
-                            <span class="text-xs font-semibold text-slate-200 tracking-wide">${title}</span>
-                        </div>
-                        <div class="flex items-center space-x-1" onclick="event.stopPropagation()">
-                            ${url ? `<a href="${url}" target="_blank" title="Open directly in browser" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>` : ''}
-                            <button id="${winId}-max-btn-2" class="w-8 h-7 rounded-full hover:bg-white/10 text-slate-300 transition flex items-center justify-center" title="Maximize">
-                                <i class="fa-regular fa-square text-[9px]"></i>
-                            </button>
-                            <button onclick="document.getElementById('${winId}').remove()" class="win-close-btn w-8 h-7 rounded-full text-slate-300 transition flex items-center justify-center" title="Close">
-                                <i class="fa-solid fa-xmark text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex-1 w-full h-full bg-black relative">
-                    <iframe id="${winId}-iframe" class="w-full h-full border-0" allow="autoplay; gamepad; fullscreen; accelerometer; gyroscope" allowfullscreen></iframe>
-                </div>
-            `;
-
-            container.appendChild(winDiv);
-
-            const maxBtn = document.getElementById(`${winId}-max-btn`);
-            const maxBtn2 = document.getElementById(`${winId}-max-btn-2`);
-            const f11Header = document.getElementById(`${winId}-f11-header`);
-            const normalHeader = document.getElementById(`${winId}-normal-header`);
-            const detector = document.getElementById(`${winId}-detector`);
-
-            function toggleMax() {
-                winDiv.style.zIndex = ++zIndexCounter;
-                if (!isGameMaximized) {
-                    winDiv.dataset.prevLeft = winDiv.style.left;
-                    winDiv.dataset.prevTop = winDiv.style.top;
-                    winDiv.dataset.prevWidth = winDiv.style.width;
-                    winDiv.dataset.prevHeight = winDiv.style.height;
-
-                    // Fill 100vw x 100vh completely
-                    winDiv.style.left = '0px';
-                    winDiv.style.top = '0px';
-                    winDiv.style.width = '100vw';
-                    winDiv.style.height = '100vh';
-                    winDiv.style.borderRadius = '0px';
-
-                    // Switch to F11 auto-hiding header mode
-                    if (normalHeader) normalHeader.style.display = 'none';
-                    if (f11Header) f11Header.classList.remove('hidden');
-                    if (detector) detector.classList.remove('hidden');
-
-                    isGameMaximized = true;
-                } else {
-                    winDiv.style.left = winDiv.dataset.prevLeft;
-                    winDiv.style.top = winDiv.dataset.prevTop;
-                    winDiv.style.width = winDiv.dataset.prevWidth;
-                    winDiv.style.height = winDiv.dataset.prevHeight;
-                    winDiv.style.borderRadius = '';
-
-                    // Restore normal header
-                    if (normalHeader) normalHeader.style.display = 'block';
-                    if (f11Header) {
-                        f11Header.classList.add('hidden');
-                        f11Header.classList.remove('revealed');
-                    }
-                    if (detector) detector.classList.add('hidden');
-
-                    isGameMaximized = false;
-                }
-            }
-
-            if (maxBtn) maxBtn.onclick = toggleMax;
-            if (maxBtn2) maxBtn2.onclick = toggleMax;
-
-            // Hover handlers for F11 auto-reveal
-            if (detector && f11Header) {
-                detector.addEventListener('mouseenter', () => {
-                    if (isGameMaximized) f11Header.classList.add('revealed');
-                });
-                f11Header.addEventListener('mouseleave', (e) => {
-                    // Hide header if mouse moves away upward or downward
-                    if (e.clientY > 50) {
-                        f11Header.classList.remove('revealed');
-                    }
-                });
-            }
-
-            const iframe = document.getElementById(`${winId}-iframe`);
-            if (iframe) {
-                if (embedCode) {
-                    iframe.srcdoc = embedCode;
-                } else if (url) {
-                    iframe.src = url;
-                }
-            }
-
-            setTimeout(() => {
-                winDiv.classList.remove('scale-95', 'opacity-0');
-            }, 10);
-
-            winDiv.addEventListener('mousedown', () => { winDiv.style.zIndex = ++zIndexCounter; });
-            makeWindowDraggableCustom(winDiv, winDiv.querySelector('.game-header'), () => isGameMaximized);
-            makeWindowResizable(winDiv, () => isGameMaximized);
-        }
-
-        function makeWindowDraggableCustom(elmnt, header, isMaximizedCheck) {
-            let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
-
-            if (header) {
-                header.onmousedown = dragMouseDown;
-            }
-
-            function dragMouseDown(e) {
-                if ((isMaximizedCheck && isMaximizedCheck()) || e.target.closest('button') || e.target.closest('a')) return;
-                e.preventDefault();
-                elmnt.style.zIndex = ++zIndexCounter;
-                elmnt.classList.add('is-dragging');
-                startX = e.clientX;
-                startY = e.clientY;
-                initialLeft = elmnt.offsetLeft;
-                initialTop = elmnt.offsetTop;
-
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
-
-            function elementDrag(e) {
-                e.preventDefault();
-                const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
-
-                let newTop = Math.max(0, initialTop + dy);
-                let newLeft = initialLeft + dx;
-                elmnt.style.left = newLeft + "px";
-                elmnt.style.top = newTop + "px";
-            }
-
-            function closeDragElement() {
-                elmnt.classList.remove('is-dragging');
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
-        }
-
-        function focusApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                winDiv.style.zIndex = ++zIndexCounter;
-            }
-        }
-
-        function toggleAppWindow() {
-            if (!isAppOpen) {
-                openApp();
-            } else if (isMinimized) {
-                unminimizeApp();
-            } else {
-                minimizeApp();
-            }
-        }
-
-        function minimizeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                winDiv.classList.add('scale-95', 'opacity-0');
-                isMinimized = true;
-            }
-        }
-
-        function unminimizeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                focusApp();
-                winDiv.classList.remove('scale-95', 'opacity-0');
-                isMinimized = false;
-            }
-        }
-
-        function toggleMaximizeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (!winDiv) return;
-
-            if (!isMaximized) {
+            if (!isGameMaximized) {
                 winDiv.dataset.prevLeft = winDiv.style.left;
                 winDiv.dataset.prevTop = winDiv.style.top;
                 winDiv.dataset.prevWidth = winDiv.style.width;
@@ -759,190 +604,336 @@
                 winDiv.style.width = '100vw';
                 winDiv.style.height = '100vh';
                 winDiv.style.borderRadius = '0px';
-                isMaximized = true;
+
+                if (normalHeader) normalHeader.style.display = 'none';
+                if (f11Header) f11Header.classList.remove('hidden');
+                if (detector) detector.classList.remove('hidden');
+
+                isGameMaximized = true;
             } else {
                 winDiv.style.left = winDiv.dataset.prevLeft;
                 winDiv.style.top = winDiv.dataset.prevTop;
                 winDiv.style.width = winDiv.dataset.prevWidth;
                 winDiv.style.height = winDiv.dataset.prevHeight;
                 winDiv.style.borderRadius = '';
-                isMaximized = false;
-            }
-        }
 
-        function closeApp() {
-            const winDiv = document.getElementById('app-window');
-            if (winDiv) {
-                winDiv.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    winDiv.remove();
-                }, 200);
-            }
-            isAppOpen = false;
-            isMinimized = false;
-            isMaximized = false;
-            const indicator = document.getElementById('app-dock-indicator');
-            if (indicator) indicator.classList.add('opacity-0');
-        }
-
-        function makeWindowDraggable(elmnt) {
-            let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
-            let ticking = false;
-            const header = elmnt.querySelector('.glass-header-sheen');
-
-            if (header) {
-                header.onmousedown = dragMouseDown;
-            }
-
-            function dragMouseDown(e) {
-                if (isMaximized || e.target.closest('button')) return;
-                e.preventDefault();
-                focusApp();
-                elmnt.classList.add('is-dragging');
-                startX = e.clientX;
-                startY = e.clientY;
-                initialLeft = elmnt.offsetLeft;
-                initialTop = elmnt.offsetTop;
-
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
-
-            function elementDrag(e) {
-                e.preventDefault();
-                const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
-
-                if (!ticking) {
-                    requestAnimationFrame(() => {
-                        let newTop = initialTop + dy;
-                        let newLeft = initialLeft + dx;
-                        if (newTop < 0) newTop = 0;
-                        elmnt.style.top = newTop + "px";
-                        elmnt.style.left = newLeft + "px";
-                        ticking = false;
-                    });
-                    ticking = true;
+                if (normalHeader) normalHeader.style.display = 'block';
+                if (f11Header) {
+                    f11Header.classList.add('hidden');
+                    f11Header.classList.remove('revealed');
                 }
-            }
+                if (detector) detector.classList.add('hidden');
 
-            function closeDragElement() {
-                elmnt.classList.remove('is-dragging');
-                document.onmouseup = null;
-                document.onmousemove = null;
+                isGameMaximized = false;
             }
         }
 
-        function makeWindowResizable(elmnt, isMaximizedCheck) {
-            const handles = elmnt.querySelectorAll('.resize-handle');
-            
-            handles.forEach(handle => {
-                handle.addEventListener('mousedown', initResize);
+        if (maxBtn) maxBtn.onclick = toggleMax;
+        if (maxBtn2) maxBtn2.onclick = toggleMax;
+
+        if (detector && f11Header) {
+            detector.addEventListener('mouseenter', () => {
+                if (isGameMaximized) f11Header.classList.add('revealed');
             });
-
-            function initResize(e) {
-                if (isMaximizedCheck && isMaximizedCheck()) return;
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const handleClass = Array.from(e.target.classList).find(c => c.startsWith('resize-handle-'));
-                if (!handleClass) return;
-                const direction = handleClass.replace('resize-handle-', '');
-                
-                let startX = e.clientX;
-                let startY = e.clientY;
-                let startWidth = parseInt(document.defaultView.getComputedStyle(elmnt).width, 10);
-                let startHeight = parseInt(document.defaultView.getComputedStyle(elmnt).height, 10);
-                let startLeft = elmnt.offsetLeft;
-                let startTop = elmnt.offsetTop;
-
-                function doResize(e) {
-                    if (direction.includes('e')) {
-                        elmnt.style.width = Math.max(320, startWidth + e.clientX - startX) + 'px';
-                    }
-                    if (direction.includes('s')) {
-                        elmnt.style.height = Math.max(220, startHeight + e.clientY - startY) + 'px';
-                    }
-                    if (direction.includes('w')) {
-                        const newWidth = Math.max(320, startWidth - (e.clientX - startX));
-                        if (newWidth > 320) {
-                            elmnt.style.width = newWidth + 'px';
-                            elmnt.style.left = (startLeft + (e.clientX - startX)) + 'px';
-                        }
-                    }
-                    if (direction.includes('n')) {
-                        const newHeight = Math.max(220, startHeight - (e.clientY - startY));
-                        if (newHeight > 220) {
-                            elmnt.style.height = newHeight + 'px';
-                            elmnt.style.top = (startTop + (e.clientY - startY)) + 'px';
-                        }
-                    }
+            f11Header.addEventListener('mouseleave', (e) => {
+                if (e.clientY > 50) {
+                    f11Header.classList.remove('revealed');
                 }
+            });
+        }
 
-                function stopResize() {
-                    window.removeEventListener('mousemove', doResize);
-                    window.removeEventListener('mouseup', stopResize);
-                }
-
-                window.addEventListener('mousemove', doResize);
-                window.addEventListener('mouseup', stopResize);
+        const iframe = document.getElementById(`${winId}-iframe`);
+        if (iframe) {
+            // Apply security attributes and allow-scripts/allow-same-origin / COOP/COEP sandbox permissions where applicable
+            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups allow-modals allow-presentation');
+            
+            if (embedCode) {
+                iframe.srcdoc = embedCode;
+            } else if (url) {
+                iframe.src = url;
             }
         }
 
-        function openContextMenu(e) {
+        setTimeout(() => {
+            winDiv.classList.remove('scale-95', 'opacity-0');
+        }, 10);
+
+        winDiv.addEventListener('mousedown', () => { winDiv.style.zIndex = ++zIndexCounter; });
+        makeWindowDraggableCustom(winDiv, winDiv.querySelector('.game-header'), () => isGameMaximized);
+        makeWindowResizable(winDiv, () => isGameMaximized);
+    }
+
+    function makeWindowDraggableCustom(elmnt, header, isMaximizedCheck) {
+        let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+
+        if (header) {
+            header.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            if ((isMaximizedCheck && isMaximizedCheck()) || e.target.closest('button') || e.target.closest('a')) return;
             e.preventDefault();
-            closeMenus();
-            const cm = document.getElementById('context-menu');
-            if (cm) {
-                cm.style.left = `${Math.min(e.clientX, window.innerWidth - 230)}px`;
-                cm.style.top = `${Math.min(e.clientY, window.innerHeight - 150)}px`;
-                cm.classList.remove('hidden');
+            elmnt.style.zIndex = ++zIndexCounter;
+            elmnt.classList.add('is-dragging');
+            startX = e.clientX;
+            startY = e.clientY;
+            initialLeft = elmnt.offsetLeft;
+            initialTop = elmnt.offsetTop;
+
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e.preventDefault();
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+
+            let newTop = Math.max(0, initialTop + dy);
+            let newLeft = initialLeft + dx;
+            elmnt.style.left = newLeft + "px";
+            elmnt.style.top = newTop + "px";
+        }
+
+        function closeDragElement() {
+            elmnt.classList.remove('is-dragging');
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    function focusApp() {
+        const winDiv = document.getElementById('app-window');
+        if (winDiv) {
+            winDiv.style.zIndex = ++zIndexCounter;
+        }
+    }
+
+    function toggleAppWindow() {
+        if (!isAppOpen) {
+            openApp();
+        } else if (isMinimized) {
+            unminimizeApp();
+        } else {
+            minimizeApp();
+        }
+    }
+
+    function minimizeApp() {
+        const winDiv = document.getElementById('app-window');
+        if (winDiv) {
+            winDiv.classList.add('scale-95', 'opacity-0');
+            isMinimized = true;
+        }
+    }
+
+    function unminimizeApp() {
+        const winDiv = document.getElementById('app-window');
+        if (winDiv) {
+            focusApp();
+            winDiv.classList.remove('scale-95', 'opacity-0');
+            isMinimized = false;
+        }
+    }
+
+    function toggleMaximizeApp() {
+        const winDiv = document.getElementById('app-window');
+        if (!winDiv) return;
+
+        if (!isMaximized) {
+            winDiv.dataset.prevLeft = winDiv.style.left;
+            winDiv.dataset.prevTop = winDiv.style.top;
+            winDiv.dataset.prevWidth = winDiv.style.width;
+            winDiv.dataset.prevHeight = winDiv.style.height;
+
+            winDiv.style.left = '0px';
+            winDiv.style.top = '0px';
+            winDiv.style.width = '100vw';
+            winDiv.style.height = '100vh';
+            winDiv.style.borderRadius = '0px';
+            isMaximized = true;
+        } else {
+            winDiv.style.left = winDiv.dataset.prevLeft;
+            winDiv.style.top = winDiv.dataset.prevTop;
+            winDiv.style.width = winDiv.dataset.prevWidth;
+            winDiv.style.height = winDiv.dataset.prevHeight;
+            winDiv.style.borderRadius = '';
+            isMaximized = false;
+        }
+    }
+
+    function closeApp() {
+        const winDiv = document.getElementById('app-window');
+        if (winDiv) {
+            winDiv.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                winDiv.remove();
+            }, 200);
+        }
+        isAppOpen = false;
+        isMinimized = false;
+        isMaximized = false;
+        const indicator = document.getElementById('app-dock-indicator');
+        if (indicator) indicator.classList.add('opacity-0');
+    }
+
+    function makeWindowDraggable(elmnt) {
+        let startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+        let ticking = false;
+        const header = elmnt.querySelector('.glass-header-sheen');
+
+        if (header) {
+            header.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            if (isMaximized || e.target.closest('button')) return;
+            e.preventDefault();
+            focusApp();
+            elmnt.classList.add('is-dragging');
+            startX = e.clientX;
+            startY = e.clientY;
+            initialLeft = elmnt.offsetLeft;
+            initialTop = elmnt.offsetTop;
+
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e.preventDefault();
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    let newTop = initialTop + dy;
+                    let newLeft = initialLeft + dx;
+                    if (newTop < 0) newTop = 0;
+                    elmnt.style.top = newTop + "px";
+                    elmnt.style.left = newLeft + "px";
+                    ticking = false;
+                });
+                ticking = true;
             }
         }
 
-        function toggleSettingsModal() {
-            const sm = document.getElementById('settings-modal');
-            if (sm) sm.classList.toggle('hidden');
+        function closeDragElement() {
+            elmnt.classList.remove('is-dragging');
+            document.onmouseup = null;
+            document.onmousemove = null;
         }
+    }
 
-        function closeMenus() {
-            const cm = document.getElementById('context-menu');
-            const sm = document.getElementById('settings-modal');
-            if (cm) cm.classList.add('hidden');
-        }
+    function makeWindowResizable(elmnt, isMaximizedCheck) {
+        const handles = elmnt.querySelectorAll('.resize-handle');
+        
+        handles.forEach(handle => {
+            handle.addEventListener('mousedown', initResize);
+        });
 
-        function setPreset(presetClass) {
-            const video = document.getElementById('bg-video');
-            if (video) video.className = `w-full h-full object-cover transition-opacity duration-700 opacity-100 ${presetClass}`;
-        }
+        function initResize(e) {
+            if (isMaximizedCheck && isMaximizedCheck()) return;
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const handleClass = Array.from(e.target.classList).find(c => c.startsWith('resize-handle-'));
+            if (!handleClass) return;
+            const direction = handleClass.replace('resize-handle-', '');
+            
+            let startX = e.clientX;
+            let startY = e.clientY;
+            let startWidth = parseInt(document.defaultView.getComputedStyle(elmnt).width, 10);
+            let startHeight = parseInt(document.defaultView.getComputedStyle(elmnt).height, 10);
+            let startLeft = elmnt.offsetLeft;
+            let startTop = elmnt.offsetTop;
 
-        function applyCustomUrl() {
-            const urlInput = document.getElementById('custom-url-input');
-            if (!urlInput) return;
-            const url = urlInput.value.trim();
-            if (!url) return;
-
-            const video = document.getElementById('bg-video');
-            const videoSrc = document.getElementById('bg-video-src');
-            const img = document.getElementById('bg-image');
-
-            if (url.endsWith('.mp4') || url.includes('video') || url.includes('motionbgs')) {
-                if (videoSrc) videoSrc.src = url;
-                if (video) {
-                    video.load();
-                    video.play();
-                    video.classList.remove('opacity-0');
+            function doResize(e) {
+                if (direction.includes('e')) {
+                    elmnt.style.width = Math.max(320, startWidth + e.clientX - startX) + 'px';
                 }
-                if (img) img.classList.add('opacity-0');
-            } else {
-                if (img) {
-                    img.style.backgroundImage = `url('${url}')`;
-                    img.classList.add('opacity-0');
+                if (direction.includes('s')) {
+                    elmnt.style.height = Math.max(220, startHeight + e.clientY - startY) + 'px';
                 }
-                if (video) video.classList.add('opacity-0');
+                if (direction.includes('w')) {
+                    const newWidth = Math.max(320, startWidth - (e.clientX - startX));
+                    if (newWidth > 320) {
+                        elmnt.style.width = newWidth + 'px';
+                        elmnt.style.left = (startLeft + (e.clientX - startX)) + 'px';
+                    }
+                }
+                if (direction.includes('n')) {
+                    const newHeight = Math.max(220, startHeight - (e.clientY - startY));
+                    if (newHeight > 220) {
+                        elmnt.style.height = newHeight + 'px';
+                        elmnt.style.top = (startTop + (e.clientY - startY)) + 'px';
+                    }
+                }
             }
-            toggleSettingsModal();
+
+            function stopResize() {
+                window.removeEventListener('mousemove', doResize);
+                window.removeEventListener('mouseup', stopResize);
+            }
+
+            window.addEventListener('mousemove', doResize);
+            window.addEventListener('mouseup', stopResize);
         }
-    </script>
-</body>
-</html>
+    }
+
+    function openContextMenu(e) {
+        e.preventDefault();
+        closeMenus();
+        const cm = document.getElementById('context-menu');
+        if (cm) {
+            cm.style.left = `${Math.min(e.clientX, window.innerWidth - 230)}px`;
+            cm.style.top = `${Math.min(e.clientY, window.innerHeight - 150)}px`;
+            cm.classList.remove('html-hidden').replace('hidden', ''); // Ensure shown
+            cm.classList.remove('hidden');
+        }
+    }
+
+    function toggleSettingsModal() {
+        const sm = document.getElementById('settings-modal');
+        if (sm) sm.classList.toggle('hidden');
+    }
+
+    function closeMenus() {
+        const cm = document.getElementById('context-menu');
+        const sm = document.getElementById('settings-modal');
+        if (cm) cm.classList.add('hidden');
+    }
+
+    function setPreset(presetClass) {
+        const video = document.getElementById('bg-video');
+        if (video) video.className = `w-full h-full object-cover transition-opacity duration-700 opacity-100 ${presetClass}`;
+    }
+
+    function applyCustomUrl() {
+        const urlInput = document.getElementById('custom-url-input');
+        if (!urlInput) return;
+        const url = urlInput.value.trim();
+        if (!url) return;
+
+        const video = document.getElementById('bg-video');
+        const videoSrc = document.getElementById('bg-video-src');
+        const img = document.getElementById('bg-image');
+
+        if (url.endsWith('.mp4') || url.includes('video') || url.includes('motionbgs')) {
+            if (videoSrc) videoSrc.src = url;
+            if (video) {
+                video.load();
+                video.play();
+                video.classList.remove('opacity-0');
+            }
+            if (img) img.classList.add('opacity-0');
+        } else {
+            if (img) {
+                img.style.backgroundImage = `url('${url}')`;
+                img.classList.add('opacity-0');
+            }
+            if (video) video.classList.add('opacity-0');
+        }
+        toggleSettingsModal();
+    }
+</script>
